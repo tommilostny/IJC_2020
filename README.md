@@ -23,6 +23,7 @@ A) V rozhraní "bitset.h" definujte pro datovou strukturu typu pole bitů:
         Typ indexu do bitového pole.
 
    Makra:
+
      bitset_create(jmeno_pole,velikost)
        definuje a _nuluje_ proměnnou jmeno_pole
        (POZOR: opravdu musí _INICIALIZOVAT_ pole bez ohledu na
