@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"stdarg.h": "c",
+		"cstdarg": "c"
+	},
+	"git.ignoreLimitWarning": true
+}
