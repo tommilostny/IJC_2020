@@ -15,11 +15,9 @@ int main()
 	printf("%ld : %ld\n", bitset_size(my_bitset), sizeof(my_bitset));
 
 	if (my_bitset == NULL)
-		printf("coooo?\n");
+		printf("not ok!\n");
 	else
-	{
 		printf("ok\n");
-	}
 
 	printf("%ld : %ld\n", my_bitset[0], my_bitset[1]);
 
