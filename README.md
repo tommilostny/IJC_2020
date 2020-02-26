@@ -1,4 +1,5 @@
 # Jazyk C                    DU1                         18.2.2020
+https://www.fit.vutbr.cz/study/courses/IJC/public/DU1.html.cs
 ----------------------------------------------------------------
 Domácí úkol č.1
 
