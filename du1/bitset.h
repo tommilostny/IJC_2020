@@ -1,39 +1,36 @@
+#ifndef BITSET_H
+#define BITSET_H
+
 #include "error.h"
-#include <stdlib.h>
-#include <assert.h>
 
 typedef unsigned long* bitset_t;
 typedef unsigned long bitset_index_t;
 
-#define USE_INLINE
+#define BITLENGTH (sizeof(unsigned long) * (CHAR_BIT))
+
+#define bitset_create(array_name, size) \
+	static_assert(size > 0, "bitset_create: Velikost pole musi byt vetsi nez 0"); \
+	unsigned long array_name[size / BITLENGTH + 2] = { size, 0 }
+
+#define bitset_alloc(array_name, size) \
+	bitset_t array_name; \
+	assert((array_name = malloc(size / BITLENGTH + 2)) != NULL && "bitset_alloc: Chyba alokace pameti"); \
+	array_name[0] = size; \
+	for (size_t i = 1; i < size / BITLENGTH + 2; i++) array_name[i] = 0
+
 
 #ifndef USE_INLINE //makra
 
-#define bitset_create(array_name, size)({  })
-#define bitset_alloc(array_name, size)({  })
 #define bitset_free(array_name) free(array_name) 
-#define bitset_size(array_name)({  })
+
+#define bitset_size(array_name) array_name[0]
+
 #define bitset_setbit(array_name, index, expression)({  })
+
 #define bitset_getbit(array_name, index)({  })
 
+
 #else //inline funkce
-
-static inline void bitset_create(bitset_t array_name, size_t size)
-{
-	array_name[0] = size;
-	size = size / 8 / sizeof(unsigned long) + 2;
-	for (size_t i = 1; i < size; i++)
-		array_name[i] = 0;
-}
-
-static inline void bitset_alloc(bitset_t array_name, size_t size)
-{
-	array_name = malloc((size / (8 * sizeof(unsigned long)) + 2) * sizeof(unsigned long));
-	assert(array_name != NULL && "bitset_alloc: Chyba alokace paměti");
-	array_name[0] = size;
-
-	printf("alloc: %ld : %ld:%ld\n\n", array_name[0], array_name[1], array_name[2]);
-}
 
 static inline void bitset_free(bitset_t array_name)
 {
@@ -55,4 +52,5 @@ static inline void bitset_getbit(bitset_t array_name, bitset_index_t index)
 
 }
 
-#endif
+#endif //USE_INLINE
+#endif //BITSET_H

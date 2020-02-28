@@ -1,33 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <limits.h>
+
 #include "error.h"
 #include "bitset.h"
 
 int main()
 {
-	bitset_t my_bitset;
+	bitset_create(my_bitset, 100);
+	printf("%ld, %ld, %ld\n\n", my_bitset[0], my_bitset[1], my_bitset[2]);
 
-	int a;
+	bitset_alloc(my_bitset2, 150);
+	printf("%ld, %ld, %ld, %ld\n\n", my_bitset2[0], my_bitset2[1], my_bitset2[2], my_bitset2[3]);
 
-	printf("%d : %x\n\n", a, &a);
+	printf("size1: %ld\nsize2: %ld\n", bitset_size(my_bitset), bitset_size(my_bitset2));
 
-	bitset_alloc(my_bitset, 100);
-	//bitset_create(my_bitset, 100);
+	bitset_free(my_bitset2);
 
-	printf("%ld : %ld\n", bitset_size(my_bitset), sizeof(my_bitset));
-
-	if (my_bitset == NULL)
-		printf("not ok\n");
-	else
-		printf("ok\n");
-
-	printf("%ld : %ld\n", my_bitset[0], my_bitset[1]);
-
-	//bitset_free(my_bitset);
-
-	/*
-	warning_msg("%d + %d = %d\n", 1, 1, 1+1);
-	error_exit("ajajja\n");
-	warning_msg("ok\n");
-	*/
+	error_exit("nechyba\n");
 
 	return 0;
 }
