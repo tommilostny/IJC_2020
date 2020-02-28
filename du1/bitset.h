@@ -1,6 +1,8 @@
 #ifndef BITSET_H
 #define BITSET_H
 
+#include <assert.h>
+#include <limits.h>
 #include "error.h"
 
 typedef unsigned long* bitset_t;
