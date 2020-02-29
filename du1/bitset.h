@@ -27,7 +27,11 @@ typedef unsigned long bitset_index_t;
 
 #define bitset_size(array_name) array_name[0]
 
-#define bitset_setbit(array_name, index, expression)({  })
+#define bitset_setbit(array_name, index, expression) { \
+	bitset_index_t bit_i = index; \
+	while (bit_i >= BITLENGTH) bit_i -= BITLENGTH; \
+	if (expression != 0) array_name[index / BITLENGTH + 1] |= 1UL << bit_i; \
+	else array_name[index / BITLENGTH + 1] &= ~(1UL << bit_i); }
 
 #define bitset_getbit(array_name, index)({  })
 
