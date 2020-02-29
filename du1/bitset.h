@@ -23,18 +23,23 @@ typedef unsigned long bitset_index_t;
 
 #ifndef USE_INLINE //makra
 
-#define bitset_free(array_name) free(array_name) 
+#define bitset_free(array_name) \
+	free(array_name) 
 
-#define bitset_size(array_name) array_name[0]
+#define bitset_size(array_name) \
+	array_name[0]
+
+//if (index >= bitset_size(array_name)) error_exit("bitset_setbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1); \
 
 #define bitset_setbit(array_name, index, expression) \
-	if (index >= bitset_size(array_name)) error_exit("bitset_setbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1); \
-	else { bitset_index_t bit_i = index; \
-	while (bit_i >= BITLENGTH) bit_i -= BITLENGTH; \
-	if (expression != 0) array_name[index / BITLENGTH + 1] |= 1 << bit_i; \
-	else array_name[index / BITLENGTH + 1] &= ~(1 << bit_i); }
+	if (expression != 0) \
+		array_name[index / BITLENGTH + 1] |= 1UL << index % BITLENGTH; \
+	else array_name[index / BITLENGTH + 1] &= ~(1UL << index % BITLENGTH)
 
-#define bitset_getbit(array_name, index)({  })
+//	index >= bitset_size(array_name) ? error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1) : \
+
+#define bitset_getbit(array_name, index) \
+	!(array_name[index / BITLENGTH + 1] & (1UL << index % BITLENGTH)) ? 0 : 1
 
 
 #else //inline funkce
@@ -58,14 +63,19 @@ static inline void bitset_setbit(bitset_t array_name, bitset_index_t index, unsi
 	while (bit_i >= BITLENGTH)
 		bit_i -= BITLENGTH;
 	if (expression != 0)
-		array_name[index / BITLENGTH + 1] |= 1 << bit_i;
+		array_name[index / BITLENGTH + 1] |= 1UL << bit_i;
 	else
-		array_name[index / BITLENGTH + 1] &= ~(1 << bit_i);
+		array_name[index / BITLENGTH + 1] &= ~(1UL << bit_i);
 }
 
-static inline void bitset_getbit(bitset_t array_name, bitset_index_t index)
+static inline unsigned char bitset_getbit(bitset_t array_name, bitset_index_t index)
 {
+	if (index >= bitset_size(array_name))
+		error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1); \
 
+	if ((array_name[index / BITLENGTH + 1] & (1UL << index % BITLENGTH)) == 0)
+		return 0;
+	return 1;
 }
 
 #endif //USE_INLINE
