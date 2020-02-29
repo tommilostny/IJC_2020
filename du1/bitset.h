@@ -8,7 +8,7 @@
 typedef unsigned long* bitset_t;
 typedef unsigned long bitset_index_t;
 
-#define BITLENGTH (sizeof(unsigned long) * (CHAR_BIT))
+#define BITLENGTH (sizeof(unsigned long) * CHAR_BIT)
 
 #define bitset_create(array_name, size) \
 	static_assert(size > 0, "bitset_create: Velikost pole musi byt vetsi nez 0"); \
