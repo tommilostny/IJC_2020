@@ -55,27 +55,16 @@ static inline unsigned long bitset_size(bitset_t array_name)
 }
 
 static inline void bitset_setbit(bitset_t array_name, bitset_index_t index, unsigned char expression)
-{
-	if (index >= bitset_size(array_name))
-		error_exit("bitset_setbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1);
-	
-	bitset_index_t bit_i = index;
-	while (bit_i >= BITLENGTH)
-		bit_i -= BITLENGTH;
+{	
 	if (expression != 0)
-		array_name[index / BITLENGTH + 1] |= 1UL << bit_i;
+		array_name[index / BITLENGTH + 1] |= 1UL << index % BITLENGTH;
 	else
-		array_name[index / BITLENGTH + 1] &= ~(1UL << bit_i);
+		array_name[index / BITLENGTH + 1] &= ~(1UL << index % BITLENGTH);
 }
 
 static inline unsigned char bitset_getbit(bitset_t array_name, bitset_index_t index)
 {
-	if (index >= bitset_size(array_name))
-		error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1); \
-
-	if ((array_name[index / BITLENGTH + 1] & (1UL << index % BITLENGTH)) == 0)
-		return 0;
-	return 1;
+	return !(array_name[(index) / BITLENGTH + 1] & (1UL << (index) % BITLENGTH)) ? 0 : 1;
 }
 
 #endif //USE_INLINE
