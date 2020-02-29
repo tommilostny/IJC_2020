@@ -19,9 +19,11 @@ int main()
 		
 		if (bitset_getbit(my_bitset, i) == 0)
 			warning_msg("%u: error 1\n", i);
+
+		printf("%d", bitset_getbit(my_bitset, i));
 	}
 
-	printf("%ld, %lu, %lu, %lu\n\n", my_bitset[0], my_bitset[1], my_bitset[2], my_bitset[3]);
+	printf("\n%ld, %lu, %lu, %lu\n\n", my_bitset[0], my_bitset[1], my_bitset[2], my_bitset[3]);
 
 	printf("\n:%d:%d:%d\n", bitset_getbit(my_bitset, 71), bitset_getbit(my_bitset, 70), bitset_getbit(my_bitset, 0));
 
@@ -32,7 +34,7 @@ int main()
 
 	bitset_free(my_bitset2);
 
-	error_exit("nechyba\n");
+	//error_exit("nechyba\n");
 
 	return 0;
 }
