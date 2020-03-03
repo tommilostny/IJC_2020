@@ -3,7 +3,8 @@
 		"stdarg.h": "c",
 		"cstdarg": "c",
 		"eratosthenes.h": "c",
-		"stdbool.h": "c"
+		"stdbool.h": "c",
+		"ppm.h": "c"
 	},
 	"git.ignoreLimitWarning": true
 }
