@@ -3,6 +3,7 @@
 
 #include "error.h"
 #include "bitset.h"
+#include <stdbool.h>
 
 #define SETSIZE 160
 
@@ -10,11 +11,16 @@ int main()
 {
 	bitset_create(my_bitset, SETSIZE);
 
+	//bitset_getbit(my_bitset, -5);
+	//bitset_getbit(my_bitset, 2000);
+	//bitset_setbit(my_bitset, -5, 1);
+	//bitset_setbit(my_bitset, 2000, 1);
+
 	for (size_t i = 0; i < SETSIZE; i++)
 		printf("%d", bitset_getbit(my_bitset, i));
 	printf("\n");
 
-	for (size_t i = 0; i < SETSIZE; i++)
+	for (size_t i = 0; i <= bitset_size(my_bitset); i++)
 	{
 		if (bitset_getbit(my_bitset, i) != 0)
 			warning_msg("%u: error 0 : %d\n", i, bitset_getbit(my_bitset, i));

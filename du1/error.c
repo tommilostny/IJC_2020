@@ -4,23 +4,23 @@
 
 void warning_msg(const char *fmt, ...)
 {
-	va_list ap;
-	va_start(ap, fmt);
+	va_list parameters;
+	va_start(parameters, fmt);
 
 	fprintf(stderr, "CHYBA: ");
-	vfprintf(stderr, fmt, ap);
+	vfprintf(stderr, fmt, parameters);
 
-	va_end(ap);
+	va_end(parameters);
 }
 
 void error_exit(const char *fmt, ...)
 {
-	va_list ap;
-	va_start(ap, fmt);
+	va_list parameters;
+	va_start(parameters, fmt);
 
 	fprintf(stderr, "CHYBA: ");
-	vfprintf(stderr, fmt, ap);
+	vfprintf(stderr, fmt, parameters);
 
-	va_end(ap);
+	va_end(parameters);
 	exit(1);
 }

@@ -3,7 +3,6 @@
 
 //#define PRIMES_COUNT 100
 #define PRIMES_COUNT 500000000
-//#define PRIMES_COUNT 20
 
 int main()
 {
@@ -17,7 +16,7 @@ int main()
 
 	for (bitset_index_t i = bitset_size(primes_bitset); i > 2 && p_cnt < 10; i--)
 	{
-		if (!bitset_getbit(primes_bitset, i))
+		if (bitset_getbit(primes_bitset, i) == 0)
 			primes[p_cnt++] = i;
 	}
 	
