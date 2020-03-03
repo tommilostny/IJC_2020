@@ -20,8 +20,9 @@ int main()
 			primes[p_cnt++] = i;
 	}
 	
-	for (char i = 9; i >= 0; i--)
-		printf("%lu\n", primes[i]);
+	unsigned char i = 10;
+	while (i > 0)
+		printf("%lu\n", primes[--i]);
 
 	fprintf(stderr, "Time=%.3g\n", (double)(clock()-start)/CLOCKS_PER_SEC);
 	return 0;

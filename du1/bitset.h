@@ -31,14 +31,14 @@ typedef unsigned long bitset_index_t;
 
 #define bitset_setbit(array_name, index, expression) \
 	(index) > bitset_size(array_name) \
-	? error_exit("bitset_setbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1) , -1 \
+	? error_exit("bitset_setbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1) , 2 \
 	: (expression) \
 		? (array_name[(index) / BITLENGTH + 1] |= 1UL << (index) % BITLENGTH) \
 		: (array_name[(index) / BITLENGTH + 1] &= ~(1UL << (index) % BITLENGTH))
 
 #define bitset_getbit(array_name, index) \
 	(index) > bitset_size(array_name) \
-	? error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1) , -1 \
+	? error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1) , 2 \
 	: (!(array_name[(index) / BITLENGTH + 1] & (1UL << (index) % BITLENGTH)) ? 0 : 1)
 
 
@@ -70,7 +70,7 @@ static inline unsigned char bitset_getbit(bitset_t array_name, bitset_index_t in
 	if (index > bitset_size(array_name))
 	{
 		error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1);
-		return -1;
+		return 2;
 	}
 	return !(array_name[(index) / BITLENGTH + 1] & (1UL << (index) % BITLENGTH)) ? 0 : 1;
 }
