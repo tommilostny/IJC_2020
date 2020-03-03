@@ -17,12 +17,12 @@ int main()
 	for (size_t i = 0; i < SETSIZE; i++)
 	{
 		if (bitset_getbit(my_bitset, i) != 0)
-			warning_msg("%ud: error 0 : %d\n", i, bitset_getbit(my_bitset, i));
+			warning_msg("%u: error 0 : %d\n", i, bitset_getbit(my_bitset, i));
 
 		bitset_setbit(my_bitset, i, 1);
 		
 		if (bitset_getbit(my_bitset, i) == 0)
-			warning_msg("%u: error 1\n", i);
+			warning_msg("%u: error 1: %d\n", i, bitset_getbit(my_bitset, i));
 
 		printf("%d", bitset_getbit(my_bitset, i));
 	}

@@ -16,7 +16,7 @@ typedef unsigned long bitset_index_t;
 
 #define bitset_alloc(array_name, size) \
 	bitset_t array_name; \
-	assert((array_name = malloc((size) / BITLENGTH + 2)) != NULL && "bitset_alloc: Chyba alokace pameti"); \
+	assert(("bitset_alloc: Chyba alokace pameti", (array_name = malloc((size) / BITLENGTH + 2)) != NULL)); \
 	array_name[0] = size; \
 	for (size_t i = 1; i < (size) / BITLENGTH + 2; i++) array_name[i] = 0
 
@@ -29,17 +29,17 @@ typedef unsigned long bitset_index_t;
 #define bitset_size(array_name) \
 	array_name[0]
 
-//if (index >= bitset_size(array_name)) error_exit("bitset_setbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1); \
-
 #define bitset_setbit(array_name, index, expression) \
-	if (expression != 0) \
-		array_name[(index) / BITLENGTH + 1] |= 1UL << (index) % BITLENGTH; \
-	else array_name[(index) / BITLENGTH + 1] &= ~(1UL << (index) % BITLENGTH)
-
-//	index >= bitset_size(array_name) ? error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1) : \
+	index >= bitset_size(array_name) \
+	? error_exit("bitset_setbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1) , -1 \
+	: expression != 0 \
+		? (array_name[(index) / BITLENGTH + 1] |= 1UL << (index) % BITLENGTH) \
+		: (array_name[(index) / BITLENGTH + 1] &= ~(1UL << (index) % BITLENGTH))
 
 #define bitset_getbit(array_name, index) \
-	!(array_name[(index) / BITLENGTH + 1] & (1UL << (index) % BITLENGTH)) ? 0 : 1
+	index >= bitset_size(array_name) \
+	? error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1) , -1 \
+	: !(array_name[(index) / BITLENGTH + 1] & (1UL << (index) % BITLENGTH)) ? 0 : 1
 
 
 #else //inline funkce
