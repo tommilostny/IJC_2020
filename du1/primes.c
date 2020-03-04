@@ -1,8 +1,9 @@
 // primes.c
 // Řešení IJC-DU1, příklad a), 3.3.2020
-// Autor: Tomáš Milostný, FIT
+// Autor: Tomáš Milostný, xmilos02, FIT VUT
 // Přeloženo: gcc 7.4
-// ...popis příkladu - poznámky, omezení, atd
+// Popis: Výpočet posledních 10 prvočísel od 2 do 500,000,000
+//        pomocí Eratosthenova síta
 
 #include "eratosthenes.h"
 #include <time.h>
