@@ -4,8 +4,8 @@
 // Přeloženo: gcc 7.4
 // ...popis příkladu - poznámky, omezení, atd
 
-#ifndef PPM
-#define PPM
+#ifndef PPM_H
+#define PPM_H
 
 //Můžete omezit max. velikost obrazových dat vhodným implementačním limitem
 #define PPM_LIMIT 8000*8000*3
@@ -14,7 +14,7 @@ struct ppm
 {
 	unsigned xsize;
 	unsigned ysize;
-	char *data;		//RGB 3*xsize*ysize
+	unsigned char *data;		//RGB 3*xsize*ysize
 };
 
 /*
@@ -28,5 +28,7 @@ struct ppm *ppm_read(const char *filename);
  * uvolní paměť dynamicky alokovanou v ppm_read
  */
 void ppm_free(struct ppm *p);
+
+#include "ppm.c"
 
 #endif

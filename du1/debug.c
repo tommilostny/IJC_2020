@@ -4,11 +4,22 @@
 #include "error.h"
 #include "bitset.h"
 #include <stdbool.h>
+#include "ppm.h"
 
 #define SETSIZE 160
 
+#define PPM_DEBUG
+
 int main()
 {
+	#ifdef PPM_DEBUG
+
+	struct ppm *myimage = ppm_read("du1-obrazek.ppm");
+	ppm_free(myimage);
+
+	#endif
+
+	#ifdef BITSET_DEBUG
 	bitset_create(my_bitset, SETSIZE);
 
 	//bitset_getbit(my_bitset, -5);
@@ -45,6 +56,7 @@ int main()
 	bitset_free(my_bitset2);
 
 	//error_exit("nechyba\n");
+	#endif
 
 	return 0;
 }
