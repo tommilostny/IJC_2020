@@ -8,11 +8,13 @@
 #				 run: spusti primes a primes-i stylem "time ./program"
 #							a steg-decode stylem "./steg-decode du1-obrazek.ppm"
 
+default_target: all
+
 CC=gcc
 
 CFLAGS=-g -O2 -std=c11 -pedantic -Wall -Wextra
 
-all: clean primes primes-i #steg-decode steg-encode
+all: clean primes primes-i steg-decode #steg-encode
 
 
 primes:
@@ -21,6 +23,11 @@ primes:
 primes-i:
 	$(CC) $(CFLAGS) primes.c -o primes-i -lm -DUSE_INLINE
 
+steg-decode:
+	$(CC) $(CFLAGS) steg-decode.c -o steg-decode -lm
+
+debug:
+	$(CC) $(CFLAGS) debug.c -o debug
 
 clean:
 	rm -f *.o

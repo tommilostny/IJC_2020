@@ -16,7 +16,7 @@ struct ppm *ppm_read(const char *filename)
 	if (ppm_file == NULL)
 	{
 		warning_msg("%s: Unable to open file.\n", filename);
-		goto error_end;
+		return NULL;
 	}
 
 	char buffer[2];
@@ -27,7 +27,7 @@ struct ppm *ppm_read(const char *filename)
 	}
 	if (buffer[0] != 'P' || buffer[1] != '6')
 	{
-		warning_msg("%s: Invalid PPM file (must be P6).\n", filename);
+		warning_msg("%s: Invalid PPM file format (must be P6).\n", filename);
 		goto error_end;
 	}
 	
@@ -61,6 +61,8 @@ struct ppm *ppm_read(const char *filename)
 
 	image->xsize = x_size;
 	image->ysize = y_size;
+
+	
 	image->data = malloc(image_size);
 	if (image->data == NULL)
 	{

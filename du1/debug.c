@@ -8,7 +8,8 @@
 
 #define SETSIZE 160
 
-#define PPM_DEBUG
+//#define PPM_DEBUG
+#define BITSET_DEBUG
 
 int main()
 {
@@ -52,6 +53,19 @@ int main()
 	printf("%ld, %ld, %ld, %ld\n\n", my_bitset2[0], my_bitset2[1], my_bitset2[2], my_bitset2[3]);
 
 	printf("size1: %ld\nsize2: %ld\n", bitset_size(my_bitset), bitset_size(my_bitset2));
+
+	printf("------------ALLOC-------------\n");
+	for (bitset_index_t i = 0; i <= bitset_size(my_bitset2); i++)
+	{
+		printf("%d", bitset_getbit(my_bitset2, i));
+	}
+	printf("\n");
+	for (bitset_index_t i = 0; i <= bitset_size(my_bitset2); i++)
+	{
+		bitset_setbit(my_bitset2, i, 1);
+		printf("%d", bitset_getbit(my_bitset2, i));
+	}
+	printf("\n------------------------------\n");
 
 	bitset_free(my_bitset2);
 

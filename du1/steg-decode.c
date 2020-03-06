@@ -4,17 +4,57 @@
 // Přeloženo: gcc 7.4
 // ...popis příkladu - poznámky, omezení, atd
 
-/*
- * Napište testovací program "steg-decode.c", kde ve funkci main načtete ze
- * souboru zadaného jako jediný argument programu obrázek ve formátu PPM
- * a v něm najdete uloženou "tajnou" zprávu. Zprávu vytisknete na stdout.   ...
- */
-
 #include <stdio.h>
+#include <malloc.h>
 #include "ppm.h"
+#include "eratosthenes.h"
 
-int main()
+int main(int argc, char **argv)
 {
+	if (argc != 2)
+		error_exit("Too few arguments. Run as ./steg-decode file.ppm\n");
+/*
+	if (mallopt(M_MMAP_THRESHOLD, 200) == 1)
+		printf("success\n");
+	else
+	{
+		printf("not success\n");
+	}
+*/	
+	struct ppm *image;
+	if ((image = ppm_read(argv[1])) == NULL)
+		return 1;
+/*
+	bitset_alloc(primes_bitset, image->xsize * image->ysize * 3);
+	if (primes_bitset == NULL)
+		return 1;
+*/
+	bitset_create(primes_bitset, PPM_LIMIT);
+	Eratosthenes(primes_bitset);
 
+	unsigned char secret_character = 0;
+	unsigned char c_length = 0; //c_lenght == 8 : complete char c for printing
+
+	for (bitset_index_t i = 23; i < bitset_size(primes_bitset); i++)
+	{
+		if (bitset_getbit(primes_bitset, i) == 0)
+		{
+			secret_character |= ((0x01 & image->data[i]) << c_length);
+			
+			if (++c_length == CHAR_BIT)
+			{
+				if (secret_character == '\0')
+					break;
+
+				putchar(secret_character);
+				secret_character = '\0';
+				c_length = 0;
+			}
+		}
+	}
+	printf("\n");
+
+	//bitset_free(primes_bitset);
+	ppm_free(image);
 	return 0;
 }
