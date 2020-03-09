@@ -4,7 +4,7 @@
  * Řešení IJC-DU1, příklad b)
  * Datum vytvoření: 3.3.2020
  * Autor: Tomáš Milostný, xmilos02, FIT VUT
- * Překladač: gcc 7.4
+ * Překladač: gcc (Ubuntu 7.4.0-1ubuntu1~18.04.1) 7.4.0
  * Popis: Rozhraní definující datovou strukturu typu pole bitů a makra/inline funkce s tímto polem pracující.
  */
 
