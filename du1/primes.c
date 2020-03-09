@@ -5,8 +5,10 @@
 // Popis: Výpočet posledních 10 prvočísel od 2 do 500,000,000
 //        pomocí Eratosthenova síta
 
-#include "eratosthenes.h"
+#include <stdio.h>
 #include <time.h>
+#include "bitset.h"
+#include "eratosthenes.h"
 
 //#define PRIMES_COUNT 100
 #define PRIMES_COUNT 500000000

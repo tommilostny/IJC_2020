@@ -5,6 +5,7 @@
 // ...popis příkladu - poznámky, omezení, atd
 
 #include <stdio.h>
+#include <malloc.h>
 #include "error.h"
 #include "ppm.h"
 

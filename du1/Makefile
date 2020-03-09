@@ -17,17 +17,23 @@ CFLAGS=-g -O2 -std=c11 -pedantic -Wall -Wextra
 all: clean primes primes-i steg-decode #steg-encode
 
 
-primes:
-	$(CC) $(CFLAGS) primes.c -o primes -lm
+primes: error.o eratosthenes.o primes.o
+	$(CC) $(CFLAGS) error.o eratosthenes.o primes.o -o $@ -lm
 
-primes-i:
-	$(CC) $(CFLAGS) primes.c -o primes-i -lm -DUSE_INLINE
+primes-i: error.o eratosthenes.o primes.o
+	$(CC) $(CFLAGS) error.o eratosthenes.o primes.o -o $@ -lm -DUSE_INLINE
 
-steg-decode:
-	$(CC) $(CFLAGS) steg-decode.c -o steg-decode -lm
+steg-decode: error.o ppm.o eratosthenes.o steg-decode.o
+	$(CC) $(CFLAGS) error.o ppm.o eratosthenes.o steg-decode.o -o $@ -lm
 
-debug:
-	$(CC) $(CFLAGS) debug.c -o debug
+
+eratosthenes.o: eratosthenes.c bitset.h error.h eratosthenes.h
+error.o: error.c
+ppm.o: ppm.c error.h ppm.h
+primes.o: primes.c bitset.h error.h eratosthenes.h
+steg-decode.o: steg-decode.c ppm.h eratosthenes.h bitset.h error.h
+steg-encode.o: steg-encode.c
+
 
 clean:
 	rm -f *.o

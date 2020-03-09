@@ -11,5 +11,4 @@
 
 void Eratosthenes(bitset_t pole);
 
-#include "eratosthenes.c"
 #endif

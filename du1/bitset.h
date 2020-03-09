@@ -9,6 +9,7 @@
 
 #include <assert.h>
 #include <limits.h>
+#include <malloc.h>
 #include "error.h"
 
 typedef unsigned long* bitset_t;
@@ -23,7 +24,8 @@ typedef unsigned long bitset_index_t;
 #define bitset_alloc(array_name, size) \
 	bitset_t array_name; \
 	assert(("bitset_alloc: Chyba alokace pameti" && (array_name = calloc((size) / BITLENGTH + 2, sizeof(bitset_t))) != NULL)); \
-	array_name[0] = size \
+	array_name[0] = size
+
 
 #ifndef USE_INLINE //makra
 

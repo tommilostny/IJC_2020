@@ -13,8 +13,8 @@ int main(int argc, char **argv)
 	if (argc != 2)
 		error_exit("Too few arguments. Run as ./steg-decode file.ppm\n");
 	
-	struct ppm *image;
-	if ((image = ppm_read(argv[1])) == NULL)
+	struct ppm *image = ppm_read(argv[1]);
+	if (image == NULL)
 		return 1;
 
 	bitset_alloc(primes_bitset, image->xsize * image->ysize * 3);
