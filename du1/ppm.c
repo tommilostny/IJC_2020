@@ -1,8 +1,12 @@
-// ppm.c
-// Řešení IJC-DU1, příklad b), 3.3.2020
-// Autor: Tomáš Milostný, xmilos02, FIT VUT
-// Přeloženo: gcc 7.4
-// ...popis příkladu - poznámky, omezení, atd
+/* 
+ * ppm.c
+ * 
+ * Řešení IJC-DU1, příklad b)
+ * Datum vytvoření: 3.3.2020
+ * Autor: Tomáš Milostný, xmilos02, FIT VUT
+ * Překladač: gcc 7.4
+ * Popis: Modul pro čtení obrázkových souborů typu PPM.
+ */
 
 #include <stdio.h>
 #include <malloc.h>

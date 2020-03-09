@@ -1,8 +1,12 @@
-// bitset.h
-// Řešení IJC-DU1, příklad a), 3.3.2020
-// Autor: Tomáš Milostný, xmilos02, FIT VUT
-// Přeloženo: gcc 7.4
-// ...popis příkladu - poznámky, omezení, atd
+/*
+ * bitset.h
+ * 
+ * Řešení IJC-DU1, příklad b)
+ * Datum vytvoření: 3.3.2020
+ * Autor: Tomáš Milostný, xmilos02, FIT VUT
+ * Překladač: gcc 7.4
+ * Popis: Rozhraní definující datovou strukturu typu pole bitů a makra/inline funkce s tímto polem pracující.
+ */
 
 #ifndef BITSET_H
 #define BITSET_H
@@ -15,70 +19,85 @@
 typedef unsigned long* bitset_t;
 typedef unsigned long bitset_index_t;
 
+//Velikost jednotky bitového pole v bitech
 #define BITLENGTH (sizeof(unsigned long) * CHAR_BIT)
 
-#define bitset_create(array_name, size) \
-	static_assert((size) > 0, "bitset_create: Velikost pole musi byt vetsi nez 0"); \
-	unsigned long array_name[(size) / BITLENGTH + 2] = { (size), 0 }
+//Vytvoří lokální pole bitů,
+//inicializuje první prvek - zadaná velikost;
+//bitové pole nuluje
+#define bitset_create(jmeno_pole, velikost) \
+	static_assert((velikost) > 0, "bitset_create: Velikost pole musi byt vetsi nez 0"); \
+	unsigned long jmeno_pole[(velikost) / BITLENGTH + 2] = { (velikost), 0 }
 
-#define bitset_alloc(array_name, size) \
-	bitset_t array_name; \
-	assert(("bitset_alloc: Chyba alokace pameti" && (array_name = calloc((size) / BITLENGTH + 2, sizeof(bitset_t))) != NULL)); \
-	array_name[0] = size
+//Dynamicky alokované a nulované pole bitů
+#define bitset_alloc(jmeno_pole, velikost) \
+	bitset_t jmeno_pole; \
+	assert(("bitset_alloc: Chyba alokace pameti" && (jmeno_pole = calloc((velikost) / BITLENGTH + 2, sizeof(bitset_t))) != NULL)); \
+	jmeno_pole[0] = velikost
 
 
 #ifndef USE_INLINE //makra
 
-#define bitset_free(array_name) \
-	free(array_name) 
+//Uvolní dynamicky alokované bitové pole vytvořené bitset_alloc
+#define bitset_free(jmeno_pole) \
+	free(jmeno_pole) 
 
-#define bitset_size(array_name) \
-	array_name[0]
+//První prvek pole - velikost bitového pole
+#define bitset_size(jmeno_pole) \
+	jmeno_pole[0]
 
-#define bitset_setbit(array_name, index, expression) \
-	(index) > bitset_size(array_name) \
-	? error_exit("bitset_setbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)) , 2 \
-	: (expression) \
-		? (array_name[(index) / BITLENGTH + 1] |= 1UL << (index) % BITLENGTH) \
-		: (array_name[(index) / BITLENGTH + 1] &= ~(1UL << (index) % BITLENGTH))
+//Nastaví bit pole na zadaném indexu na hodnotu zadanou výrazem
+//nulový výraz:   0
+//nenulový výraz: 1
+#define bitset_setbit(jmeno_pole, index, vyraz) \
+	(index) > bitset_size(jmeno_pole) \
+	? error_exit("bitset_setbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(jmeno_pole)) , 2 \
+	: (vyraz) \
+		? (jmeno_pole[(index) / BITLENGTH + 1] |= 1UL << (index) % BITLENGTH) \
+		: (jmeno_pole[(index) / BITLENGTH + 1] &= ~(1UL << (index) % BITLENGTH))
 
-#define bitset_getbit(array_name, index) \
-	(index) > bitset_size(array_name) \
-	? error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)) , 2 \
-	: (!(array_name[(index) / BITLENGTH + 1] & (1UL << (index) % BITLENGTH)) ? 0 : 1)
+//Získá hodnotu zadaného bitu na zadaném indexu, vrací hodnotu 0 nebo 1
+#define bitset_getbit(jmeno_pole, index) \
+	((index) > bitset_size(jmeno_pole) \
+	? error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(jmeno_pole)) , 2 \
+	: !(jmeno_pole[(index) / BITLENGTH + 1] & (1UL << (index) % BITLENGTH)) ? 0 : 1)
 
 
 #else //inline funkce
 
-static inline void bitset_free(bitset_t array_name)
+//Uvolní dynamicky alokované bitové pole vytvořené bitset_alloc
+inline void bitset_free(bitset_t jmeno_pole)
 {
-	free(array_name);
+	free(jmeno_pole);
 }
 
-static inline unsigned long bitset_size(bitset_t array_name)
+//První prvek pole - velikost bitového pole
+inline unsigned long bitset_size(bitset_t jmeno_pole)
 {
-	return array_name[0];
+	return jmeno_pole[0];
 }
 
-static inline void bitset_setbit(bitset_t array_name, bitset_index_t index, unsigned char expression)
+//Nastaví bit pole na zadaném indexu na hodnotu zadanou výrazem
+//nulový výraz:   0
+//nenulový výraz: 1
+inline void bitset_setbit(bitset_t jmeno_pole, bitset_index_t index, unsigned char vyraz)
 {
-	if (index > bitset_size(array_name))
-		error_exit("bitset_setbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1);
+	if (index > bitset_size(jmeno_pole))
+		error_exit("bitset_setbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(jmeno_pole)-1);
 		
-	if (expression)
-		array_name[index / BITLENGTH + 1] |= 1UL << index % BITLENGTH;
+	if (vyraz)
+		jmeno_pole[index / BITLENGTH + 1] |= 1UL << index % BITLENGTH;
 	else
-		array_name[index / BITLENGTH + 1] &= ~(1UL << index % BITLENGTH);
+		jmeno_pole[index / BITLENGTH + 1] &= ~(1UL << index % BITLENGTH);
 }
 
-static inline unsigned char bitset_getbit(bitset_t array_name, bitset_index_t index)
+//Získá hodnotu zadaného bitu na zadaném indexu, vrací hodnotu 0 nebo 1
+inline unsigned char bitset_getbit(bitset_t jmeno_pole, bitset_index_t index)
 {
-	if (index > bitset_size(array_name))
-	{
-		error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)-1);
-		return 2;
-	}
-	return !(array_name[(index) / BITLENGTH + 1] & (1UL << (index) % BITLENGTH)) ? 0 : 1;
+	if (index > bitset_size(jmeno_pole))
+		error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(jmeno_pole)-1);
+
+	return !(jmeno_pole[(index) / BITLENGTH + 1] & (1UL << (index) % BITLENGTH)) ? 0 : 1;
 }
 
 #endif //USE_INLINE

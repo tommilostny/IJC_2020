@@ -1,31 +1,35 @@
-// ppm.h
-// Řešení IJC-DU1, příklad b), 3.3.2020
-// Autor: Tomáš Milostný, xmilos02, FIT VUT
-// Přeloženo: gcc 7.4
-// ...popis příkladu - poznámky, omezení, atd
+/* 
+ * ppm.h
+ * 
+ * Řešení IJC-DU1, příklad b)
+ * Datum vytvoření: 3.3.2020
+ * Autor: Tomáš Milostný, xmilos02, FIT VUT
+ * Překladač: gcc 7.4
+ * Popis: Rozhraní pro modul ppm.c pro čtení obrázkových souborů typu PPM.
+ */
 
 #ifndef PPM_H
 #define PPM_H
 
-//Můžete omezit max. velikost obrazových dat vhodným implementačním limitem
+//Implementační limit pro max. velikost obrazových dat
 #define PPM_LIMIT 8000*8000*3
 
+//Struktura pro obrazová data souboru PPM
 struct ppm
 {
 	unsigned xsize;
 	unsigned ysize;
-	unsigned char *data;		//RGB 3*xsize*ysize
+	unsigned char *data; //RGB 3*xsize*ysize
 };
 
 /*
- * načte obsah PPM souboru do touto funkcí dynamicky
- * alokované struktury. Při chybě formátu použije funkci warning_msg
- * a vrátí NULL.  Pozor na "memory leaks".
+ * Načte obsah PPM souboru do touto funkcí dynamicky alokované struktury.
+ * Při chybě formátu použije funkci warning_msg a vrátí NULL.
  */
 struct ppm *ppm_read(const char *filename);
 
 /*
- * uvolní paměť dynamicky alokovanou v ppm_read
+ * Uvolní paměť dynamicky alokované struktury vytvořené ppm_read
  */
 void ppm_free(struct ppm *p);
 

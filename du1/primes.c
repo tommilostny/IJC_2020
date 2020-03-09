@@ -1,13 +1,15 @@
-// primes.c
-// Řešení IJC-DU1, příklad a), 3.3.2020
-// Autor: Tomáš Milostný, xmilos02, FIT VUT
-// Přeloženo: gcc 7.4
-// Popis: Výpočet posledních 10 prvočísel od 2 do 500,000,000
-//        pomocí Eratosthenova síta
+/* 
+ * primes.c
+ * 
+ * Řešení IJC-DU1, příklad a)
+ * Datum vytvoření: 3.3.2020
+ * Autor: Tomáš Milostný, xmilos02, FIT VUT
+ * Překladač: gcc 7.4
+ * Popis: Program vypíše posledních 10 prvočísel do 500,000,000 pomocí algoritmu Eratosthenova síta.
+ */
 
 #include <stdio.h>
 #include <time.h>
-#include "bitset.h"
 #include "eratosthenes.h"
 
 //#define PRIMES_COUNT 100
@@ -25,7 +27,7 @@ int main()
 
 	for (bitset_index_t i = bitset_size(primes_bitset); i > 2 && p_cnt < 10; i--)
 	{
-		if (bitset_getbit(primes_bitset, i) == 0)
+		if (!bitset_getbit(primes_bitset, i))
 			primes[p_cnt++] = i;
 	}
 	

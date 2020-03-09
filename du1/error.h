@@ -1,8 +1,12 @@
-// error.h
-// Řešení IJC-DU1, příklad b), 3.3.2020
-// Autor: Tomáš Milostný, xmilos02, FIT VUT
-// Přeloženo: gcc 7.4
-// ...popis příkladu - poznámky, omezení, atd
+/* 
+ * error.h
+ * 
+ * Řešení IJC-DU1, příklad b)
+ * Datum vytvoření: 3.3.2020
+ * Autor: Tomáš Milostný, xmilos02, FIT VUT
+ * Překladač: gcc 7.4
+ * Popis: Rozhraní modulu deklarující prototypy funkcí pro výpis chybových hlášení.
+ */
 
 #ifndef ERROR_H
 #define ERROR_H

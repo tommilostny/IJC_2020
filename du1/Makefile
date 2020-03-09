@@ -1,12 +1,13 @@
 # Makefile
-# Řešení IJC-DU1, 3.3.2020
-# Autor:     Tomáš Milostný, xmilos02, FIT VUT
+#
+# Řešení IJC-DU1
+# Datum vytovření: 3.3.2020
+# Autor: Tomáš Milostný, xmilos02, FIT VUT
 # Přeloženo: gcc 7.4
-# TODO:popis upravit
-# Popis: Zajisti preklad pouze zmenenych nebo neexistujicich souboru
-#				 clean: smaze vsechny .o a binarni soubory
-#				 run: spusti primes a primes-i stylem "time ./program"
-#							a steg-decode stylem "./steg-decode du1-obrazek.ppm"
+# Popis: Program make pro přeložení souborů projektu
+#		 clean: Smaže všechny binární soubory s příponou .o a spustitelné programy
+#		 run:   Vytvoří a spustí všechny spustitelné programy (./primes, ./primes-i, ./steg-decode du1-obrazek.ppm)
+#        pack:  Zabalí zip balíček se soubory k odevzdání
 
 default_target: all
 
@@ -14,19 +15,21 @@ CC=gcc
 
 CFLAGS=-g -O2 -std=c11 -pedantic -Wall -Wextra
 
-all: clean primes primes-i steg-decode #steg-encode
+all: primes primes-i steg-decode #steg-encode
 
 
 primes: error.o eratosthenes.o primes.o
-	$(CC) $(CFLAGS) error.o eratosthenes.o primes.o -o $@ -lm
+	$(CC) $(CFLAGS) error.o eratosthenes.o primes.o -o primes -lm
 
 primes-i: error.o eratosthenes.o primes.o
-	$(CC) $(CFLAGS) error.o eratosthenes.o primes.o -o $@ -lm -DUSE_INLINE
+	$(CC) $(CFLAGS) error.o eratosthenes.o primes.o -o primes-i -lm -DUSE_INLINE
 
 steg-decode: error.o ppm.o eratosthenes.o steg-decode.o
-	$(CC) $(CFLAGS) error.o ppm.o eratosthenes.o steg-decode.o -o $@ -lm
+	$(CC) $(CFLAGS) error.o ppm.o eratosthenes.o steg-decode.o -o steg-decode -lm
 
 
+# gcc -MM *.c
+# závislosti programů
 eratosthenes.o: eratosthenes.c bitset.h error.h eratosthenes.h
 error.o: error.c
 ppm.o: ppm.c error.h ppm.h
@@ -42,7 +45,7 @@ clean:
 pack:
 	zip xmilos02.zip *.c *.h Makefile
 
-run:
-	time ./primes
-	time ./primes-i
-#	./steg-decode du1-obrazek.ppm
+run: all
+	./primes
+	./primes-i
+	./steg-decode du1-obrazek.ppm

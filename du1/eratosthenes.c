@@ -1,13 +1,16 @@
-// erastothenes.c
-// Řešení IJC-DU1, příklad a), 3.3.2020
-// Autor: Tomáš Milostný, xmilos02, FIT VUT
-// Přeloženo: gcc 7.4
-// ...popis příkladu - poznámky, omezení, atd
+/* 
+ * eratosthenes.c
+ * 
+ * Řešení IJC-DU1, příklad a)
+ * Datum vytvoření: 3.3.2020
+ * Autor: Tomáš Milostný, xmilos02, FIT VUT
+ * Překladač: gcc 7.4
+ * Popis: Implementace algoritmu Eratosthenovo síto pro vyhledávání prvočísel.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "bitset.h"
 #include "eratosthenes.h"
 
 void Eratosthenes(bitset_t array)

@@ -1,10 +1,15 @@
-// steg-decode.c
-// Řešení IJC-DU1, příklad b), 3.3.2020
-// Autor: Tomáš Milostný, xmilos02, FIT VUT
-// Přeloženo: gcc 7.4
-// ...popis příkladu - poznámky, omezení, atd
+/* 
+ * steg-decode.c
+ * 
+ * Řešení IJC-DU1, příklad b)
+ * Datum vytvoření: 3.3.2020
+ * Autor: Tomáš Milostný, xmilos02, FIT VUT
+ * Překladač: gcc 7.4
+ * Popis: Steganografický dekodér - Program přečtě zašifrovanou tajnou zprávu ze souboru.
+ *        Znaky zprávy jsou uložney na nejnižších významový bytech RBG bytů PPM obrázku.
+ *        Vybrané byty jsou prvočíla počínaje 23.
+ */
 
-#include <stdio.h>
 #include "ppm.h"
 #include "eratosthenes.h"
 
@@ -28,9 +33,9 @@ int main(int argc, char **argv)
 
 	for (bitset_index_t i = 23; i < bitset_size(primes_bitset); i++)
 	{
-		if (bitset_getbit(primes_bitset, i) == 0)
+		if (!bitset_getbit(primes_bitset, i))
 		{
-			secret_character |= ((0x01 & image->data[i]) << c_length);
+			secret_character |= (0x01 & image->data[i]) << c_length;
 			
 			if (++c_length == CHAR_BIT)
 			{
@@ -38,12 +43,11 @@ int main(int argc, char **argv)
 					break;
 
 				putchar(secret_character);
-				secret_character = '\0';
-				c_length = 0;
+				c_length = secret_character = 0;
 			}
 		}
 	}
-	printf("\n");
+	putchar('\n');
 
 	bitset_free(primes_bitset);
 	ppm_free(image);
