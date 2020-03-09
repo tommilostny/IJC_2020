@@ -15,7 +15,7 @@ struct ppm *ppm_read(const char *filename)
 
 	if (ppm_file == NULL)
 	{
-		warning_msg("%s: Unable to open file.\n", filename);
+		warning_msg("%s: Soubor nelze otevřít pro čtení.\n", filename);
 		return NULL;
 	}
 
@@ -61,8 +61,6 @@ struct ppm *ppm_read(const char *filename)
 
 	image->xsize = x_size;
 	image->ysize = y_size;
-
-	
 	image->data = malloc(image_size);
 	if (image->data == NULL)
 	{

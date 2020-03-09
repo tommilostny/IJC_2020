@@ -22,10 +22,8 @@ typedef unsigned long bitset_index_t;
 
 #define bitset_alloc(array_name, size) \
 	bitset_t array_name; \
-	assert(("bitset_alloc: Chyba alokace pameti" && (array_name = malloc((size) / BITLENGTH + 2)) != NULL)); \
-	array_name[0] = size; \
-	for (size_t i = 1; i < (size) / BITLENGTH + 2; i++) array_name[i] = 0
-
+	assert(("bitset_alloc: Chyba alokace pameti" && (array_name = calloc((size) / BITLENGTH + 2, sizeof(bitset_t))) != NULL)); \
+	array_name[0] = size \
 
 #ifndef USE_INLINE //makra
 

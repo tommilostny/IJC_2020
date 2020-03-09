@@ -3,3 +3,11 @@
 // Autor: Tomáš Milostný, xmilos02, FIT VUT
 // Přeloženo: gcc 7.4
 // ...popis příkladu - poznámky, omezení, atd
+
+int main(int argc, char **argv)
+{
+
+
+
+	return 0;
+}

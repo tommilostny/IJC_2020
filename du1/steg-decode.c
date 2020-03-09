@@ -5,7 +5,6 @@
 // ...popis příkladu - poznámky, omezení, atd
 
 #include <stdio.h>
-#include <malloc.h>
 #include "ppm.h"
 #include "eratosthenes.h"
 
@@ -13,23 +12,15 @@ int main(int argc, char **argv)
 {
 	if (argc != 2)
 		error_exit("Too few arguments. Run as ./steg-decode file.ppm\n");
-/*
-	if (mallopt(M_MMAP_THRESHOLD, 200) == 1)
-		printf("success\n");
-	else
-	{
-		printf("not success\n");
-	}
-*/	
+	
 	struct ppm *image;
 	if ((image = ppm_read(argv[1])) == NULL)
 		return 1;
-/*
+
 	bitset_alloc(primes_bitset, image->xsize * image->ysize * 3);
 	if (primes_bitset == NULL)
 		return 1;
-*/
-	bitset_create(primes_bitset, PPM_LIMIT);
+
 	Eratosthenes(primes_bitset);
 
 	unsigned char secret_character = 0;
@@ -54,7 +45,7 @@ int main(int argc, char **argv)
 	}
 	printf("\n");
 
-	//bitset_free(primes_bitset);
+	bitset_free(primes_bitset);
 	ppm_free(image);
 	return 0;
 }
