@@ -11,6 +11,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "error.h"
 
 void warning_msg(const char *fmt, ...)
 {

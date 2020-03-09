@@ -16,7 +16,7 @@
 int main(int argc, char **argv)
 {
 	if (argc != 2)
-		error_exit("Too few arguments. Run as ./steg-decode file.ppm\n");
+		error_exit("Nedostatečný počet argumentů.\nSpusťte program jako: ./steg-decode soubor.ppm\n");
 	
 	struct ppm *image = ppm_read(argv[1]);
 	if (image == NULL)
@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 	Eratosthenes(primes_bitset);
 
 	unsigned char secret_character = 0;
-	unsigned char c_length = 0; //c_lenght == 8 : complete char c for printing
+	unsigned char c_length = 0; //c_lenght == 8 : kompletní znak k vytisknutí
 
 	for (bitset_index_t i = 23; i < bitset_size(primes_bitset); i++)
 	{

@@ -25,21 +25,17 @@ struct ppm *ppm_read(const char *filename)
 	}
 
 	char buffer[2];
-	if (fscanf(ppm_file, "%c%c\n", &buffer[0], &buffer[1]) != 2)
-	{
-		warning_msg("%s: Invalid file format.\n", filename);
-		goto error_end;
-	}
+	fscanf(ppm_file, "%c%c\n", &buffer[0], &buffer[1]);
 	if (buffer[0] != 'P' || buffer[1] != '6')
 	{
-		warning_msg("%s: Invalid PPM file format (must be P6).\n", filename);
+		warning_msg("%s: Chybný formát souboru PPM (musí být P6).\n", filename);
 		goto error_end;
 	}
 	
 	image = malloc(sizeof(struct ppm));
 	if (image == NULL)
 	{
-		warning_msg("%s: Unable to allocate memory.\n", filename);
+		warning_msg("%s: Nedostatek paměti pro alokaci struktury PPM.\n", filename);
 		goto error_end;
 	}
 
@@ -48,19 +44,19 @@ struct ppm *ppm_read(const char *filename)
 	unsigned rgb_size;
 	if (fscanf(ppm_file, "%u %u\n%u\n", &x_size, &y_size, &rgb_size) != 3)
 	{
-		warning_msg("%s: Error loading image size.\nx:%u\ny:%u\nrgb:%u\nbuffer:%s\n", filename, x_size, y_size, rgb_size, buffer);
+		warning_msg("%s: Chyba načítaní rozměrů obrázku.\nx:%u\ny:%u\nrgb:%u\nbuffer:%s\n", filename, x_size, y_size, rgb_size, buffer);
 		goto error_end;
 	}
 	if (rgb_size != 255)
 	{
-		warning_msg("%s: RGB format must be 255.\n", filename);
+		warning_msg("%s: RGB formát souboru musí být 255.\n", filename);
 		goto error_end;
 	}
 
 	unsigned image_size = x_size * y_size * 3;
 	if (image_size > PPM_LIMIT)
 	{
-		warning_msg("%s: Image resolution is too large.\n", filename);
+		warning_msg("%s: Příliš vysoké rozlišení.\n", filename);
 		goto error_end;
 	}
 
@@ -69,7 +65,7 @@ struct ppm *ppm_read(const char *filename)
 	image->data = malloc(image_size);
 	if (image->data == NULL)
 	{
-		warning_msg("%s: Unable to allocate memory.\n", filename);
+		warning_msg("%s: Nedostatek paměti pro obrazová data.\nRozměr obrázku: %u * %u", filename, x_size, y_size);
 		goto error_end;
 	}
 
@@ -77,7 +73,7 @@ struct ppm *ppm_read(const char *filename)
 	{
 		if (!fscanf(ppm_file, "%c", &image->data[i]))
 		{
-			warning_msg("%s: Error occured while reading RGB bytes.\n", filename);
+			warning_msg("%s: Chyba při načítání RGB bytů.\n", filename);
 			goto error_end;
 		}
 	}

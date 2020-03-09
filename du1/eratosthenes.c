@@ -13,15 +13,18 @@
 #include <math.h>
 #include "eratosthenes.h"
 
-void Eratosthenes(bitset_t array)
+void Eratosthenes(bitset_t pole)
 {
-	bitset_index_t end_bit = sqrt(bitset_size(array));
+	bitset_setbit(pole, 0, 1);
+	bitset_setbit(pole, 1, 1);
+
+	bitset_index_t end_bit = sqrt(bitset_size(pole));
 	for (bitset_index_t i = 2; i < end_bit; i++)
 	{
-		if (bitset_getbit(array, i) == 0)
+		if (bitset_getbit(pole, i) == 0)
 		{
-			for (bitset_index_t j = i * i; j <= bitset_size(array); j += i)
-				bitset_setbit(array, j, 1);
+			for (bitset_index_t j = i * i; j <= bitset_size(pole); j += i)
+				bitset_setbit(pole, j, 1);
 		}		
 	}
 }

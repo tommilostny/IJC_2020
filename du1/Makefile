@@ -3,7 +3,7 @@
 # Řešení IJC-DU1
 # Datum vytovření: 3.3.2020
 # Autor: Tomáš Milostný, xmilos02, FIT VUT
-# Přeloženo: gcc 7.4
+# Překladač: gcc 7.4
 # Popis: Program make pro přeložení souborů projektu
 #		 clean: Smaže všechny binární soubory s příponou .o a spustitelné programy
 #		 run:   Vytvoří a spustí všechny spustitelné programy (./primes, ./primes-i, ./steg-decode du1-obrazek.ppm)
