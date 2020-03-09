@@ -1,10 +1,11 @@
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 
-#include "error.h"
-#include "bitset.h"
-#include <stdbool.h>
-#include "ppm.h"
+//#include "error.h"
+//#include "bitset.h"
+//#include <stdbool.h>
+//#include "ppm.h"
+#include "eratosthenes.h"
 
 #define SETSIZE 160
 
@@ -20,14 +21,23 @@ int main()
 
 	#endif
 
-	#ifdef BITSET_DEBUG
+//	#ifdef BITSET_DEBUG
 	bitset_create(my_bitset, SETSIZE);
+
+	Eratosthenes(my_bitset);
+
+	for (size_t i = 1; i <= SETSIZE; i++)
+	{
+		if (!bitset_getbit(my_bitset, i))
+			printf("%d\n", i);
+	}
+	return 0;
 
 	//bitset_getbit(my_bitset, -5);
 	//bitset_getbit(my_bitset, 2000);
 	//bitset_setbit(my_bitset, -5, 1);
 	//bitset_setbit(my_bitset, 2000, 1);
-
+/*
 	for (size_t i = 0; i < SETSIZE; i++)
 		printf("%d", bitset_getbit(my_bitset, i));
 	printf("\n");
@@ -71,6 +81,6 @@ int main()
 
 	//error_exit("nechyba\n");
 	#endif
-
+*/
 	return 0;
 }

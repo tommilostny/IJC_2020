@@ -27,6 +27,9 @@ primes-i: error.o eratosthenes.o primes.o
 steg-decode: error.o ppm.o eratosthenes.o steg-decode.o
 	$(CC) $(CFLAGS) error.o ppm.o eratosthenes.o steg-decode.o -o steg-decode -lm
 
+debug: error.o eratosthenes.o debug.o
+	$(CC) $(CFLAGS) error.o eratosthenes.o debug.o -o debug -lm
+
 
 # gcc -MM *.c
 # závislosti programů
@@ -36,7 +39,7 @@ ppm.o: ppm.c error.h ppm.h
 primes.o: primes.c bitset.h error.h eratosthenes.h
 steg-decode.o: steg-decode.c ppm.h eratosthenes.h bitset.h error.h
 steg-encode.o: steg-encode.c
-
+debug.o: debug.c eratosthenes.h bitset.h error.h
 
 clean:
 	rm -f *.o

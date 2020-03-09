@@ -25,7 +25,11 @@ struct ppm *ppm_read(const char *filename)
 	}
 
 	char buffer[2];
-	fscanf(ppm_file, "%c%c\n", &buffer[0], &buffer[1]);
+	if (fscanf(ppm_file, "%c%c\n", &buffer[0], &buffer[1]) != 2)
+	{
+		warning_msg("%s: Neplatný soubor.\n", filename);
+		goto error_end;
+	}
 	if (buffer[0] != 'P' || buffer[1] != '6')
 	{
 		warning_msg("%s: Chybný formát souboru PPM (musí být P6).\n", filename);

@@ -15,14 +15,20 @@
 
 void Eratosthenes(bitset_t pole)
 {
-	bitset_setbit(pole, 0, 1);
-	bitset_setbit(pole, 1, 1);
+	bitset_index_t i;
 
+	//0 a 1 nejsou prvočísla
+	for (i = 0; i < 2; i++)
+		bitset_setbit(pole, i, 1);
+
+	//cyklus začíná ve 2 a končí v odmocnině z počtu bitů pole
 	bitset_index_t end_bit = sqrt(bitset_size(pole));
-	for (bitset_index_t i = 2; i < end_bit; i++)
+	for ( ; i < end_bit; i++)
 	{
-		if (bitset_getbit(pole, i) == 0)
+		//bit[i] == 0: prvočíslo
+		if (!bitset_getbit(pole, i))
 		{
+			//označíme násobky prvočísla 1 (není prvočíslo)
 			for (bitset_index_t j = i * i; j <= bitset_size(pole); j += i)
 				bitset_setbit(pole, j, 1);
 		}		
