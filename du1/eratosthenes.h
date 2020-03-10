@@ -8,8 +8,7 @@
  * Popis: Implementace algoritmu Eratosthenovo síto pro vyhledávání prvočísel.
  */
 
-#ifndef ERATOSTHENES_H
-#define ERATOSTHENES_H
+#pragma once
 
 #include "bitset.h"
 
@@ -25,5 +24,3 @@
 //      (POZOR: sestavit s matematickou knihovnou parametrem -lm)
 //   5) Výsledek: v poli p jsou na prvočíselných indexech hodnoty 0
 void Eratosthenes(bitset_t pole);
-
-#endif

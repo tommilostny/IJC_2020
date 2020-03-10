@@ -10,7 +10,7 @@
 #		 run:   Vytvoří a spustí všechny spustitelné programy (./primes, ./primes-i, ./steg-decode du1-obrazek.ppm)
 #        pack:  Zabalí zip balíček se soubory k odevzdání
 
-all: primes primes-i steg-decode #steg-encode
+all: primes primes-i steg-decode steg-encode
 
 
 CC = gcc
@@ -27,6 +27,9 @@ primes-i: error.o eratosthenes.o primes.o
 steg-decode: error.o ppm.o eratosthenes.o steg-decode.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDLIBS)
 
+steg-encode: error.o ppm.o eratosthenes.o steg-encode.o
+	$(CC) $(CFLAGS) $^ -o $@ $(LDLIBS)
+
 debug: error.o eratosthenes.o debug.o
 	$(CC) $(CFLAGS) $^ -o $@ $(LDLIBS)
 
@@ -39,6 +42,7 @@ primes.o: primes.c bitset.h error.h eratosthenes.h
 steg-decode.o: steg-decode.c ppm.h eratosthenes.h bitset.h error.h
 steg-encode.o: steg-encode.c
 debug.o: debug.c eratosthenes.h bitset.h error.h
+steg-encode.o: steg-encode.c ppm.h eratosthenes.h bitset.h error.h
 
 .PHONY: clean
 

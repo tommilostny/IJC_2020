@@ -8,8 +8,7 @@
  * Popis: Rozhraní definující datovou strukturu typu pole bitů a makra/inline funkce s tímto polem pracující.
  */
 
-#ifndef BITSET_H
-#define BITSET_H
+#pragma once
 
 #include <assert.h>
 #include <limits.h>
@@ -100,5 +99,4 @@ inline unsigned char bitset_getbit(bitset_t jmeno_pole, bitset_index_t index)
 	return !(jmeno_pole[(index) / BITLENGTH + 1] & (1UL << (index) % BITLENGTH)) ? 0 : 1;
 }
 
-#endif //USE_INLINE
-#endif //BITSET_H
+#endif

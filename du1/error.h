@@ -8,8 +8,7 @@
  * Popis: Rozhraní modulu deklarující prototypy funkcí pro výpis chybových hlášení.
  */
 
-#ifndef ERROR_H
-#define ERROR_H
+#pragma once
 
 //Tisk chybového hlášení ve formátu: CHYBA: [fmt] (formát fmt je formát řetězce funkce printf).
 void warning_msg(const char *fmt, ...);
@@ -17,5 +16,3 @@ void warning_msg(const char *fmt, ...);
 //Tisk chybového hlášení ve formátu: CHYBA: [fmt] (formát fmt je formát řetězce funkce printf).
 //Po výpisu je program ukončen voláním funkce exit(1).
 void error_exit(const char *fmt, ...);
-
-#endif

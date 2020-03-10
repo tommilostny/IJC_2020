@@ -10,6 +10,7 @@
  *        Vybrané byty jsou prvočíla počínaje 23.
  */
 
+#include <stdio.h>
 #include "ppm.h"
 #include "eratosthenes.h"
 
@@ -24,7 +25,10 @@ int main(int argc, char **argv)
 
 	bitset_alloc(primes_bitset, image->xsize * image->ysize * 3);
 	if (primes_bitset == NULL)
+	{
+		ppm_free(image);
 		return 1;
+	}
 
 	Eratosthenes(primes_bitset);
 
