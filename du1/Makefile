@@ -9,13 +9,11 @@
 #		 run:   Vytvoří a spustí všechny spustitelné programy (./primes, ./primes-i, ./steg-decode du1-obrazek.ppm)
 #        pack:  Zabalí zip balíček se soubory k odevzdání
 
-default_target: all
+all: primes primes-i steg-decode #steg-encode
+
 
 CC=gcc
-
 CFLAGS=-g -O2 -std=c11 -pedantic -Wall -Wextra
-
-all: primes primes-i steg-decode #steg-encode
 
 
 primes: error.o eratosthenes.o primes.o
@@ -32,7 +30,6 @@ debug: error.o eratosthenes.o debug.o
 
 
 # gcc -MM *.c
-# závislosti programů
 eratosthenes.o: eratosthenes.c bitset.h error.h eratosthenes.h
 error.o: error.c
 ppm.o: ppm.c error.h ppm.h
