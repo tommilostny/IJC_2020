@@ -1,3 +1,4 @@
+#
 # Makefile
 #
 # Řešení IJC-DU1
@@ -12,21 +13,22 @@
 all: primes primes-i steg-decode #steg-encode
 
 
-CC=gcc
-CFLAGS=-g -O2 -std=c11 -pedantic -Wall -Wextra
+CC = gcc
+CFLAGS = -g -O2 -std=c11 -pedantic -Wall -Wextra
+LDLIBS = -lm
 
 
 primes: error.o eratosthenes.o primes.o
-	$(CC) $(CFLAGS) error.o eratosthenes.o primes.o -o primes -lm
+	$(CC) $(CFLAGS) $^ -o $@ $(LDLIBS)
 
 primes-i: error.o eratosthenes.o primes.o
-	$(CC) $(CFLAGS) error.o eratosthenes.o primes.o -o primes-i -lm -DUSE_INLINE
+	$(CC) $(CFLAGS) $^ -o $@ $(LDLIBS) -DUSE_INLINE
 
 steg-decode: error.o ppm.o eratosthenes.o steg-decode.o
-	$(CC) $(CFLAGS) error.o ppm.o eratosthenes.o steg-decode.o -o steg-decode -lm
+	$(CC) $(CFLAGS) $^ -o $@ $(LDLIBS)
 
 debug: error.o eratosthenes.o debug.o
-	$(CC) $(CFLAGS) error.o eratosthenes.o debug.o -o debug -lm
+	$(CC) $(CFLAGS) $^ -o $@ $(LDLIBS)
 
 
 # gcc -MM *.c
@@ -37,6 +39,8 @@ primes.o: primes.c bitset.h error.h eratosthenes.h
 steg-decode.o: steg-decode.c ppm.h eratosthenes.h bitset.h error.h
 steg-encode.o: steg-encode.c
 debug.o: debug.c eratosthenes.h bitset.h error.h
+
+.PHONY: clean
 
 clean:
 	rm -f *.o
