@@ -1,4 +1,3 @@
-#
 # Makefile
 #
 # Řešení IJC-DU1
@@ -6,9 +5,6 @@
 # Autor: Tomáš Milostný, xmilos02, FIT VUT
 # Překladač: gcc (Ubuntu 7.4.0-1ubuntu1~18.04.1) 7.4.0
 # Popis: Program make pro přeložení souborů projektu
-#		 clean: Smaže všechny binární soubory s příponou .o a spustitelné programy
-#		 run:   Vytvoří a spustí všechny spustitelné programy (./primes, ./primes-i, ./steg-decode du1-obrazek.ppm)
-#        pack:  Zabalí zip balíček se soubory k odevzdání
 
 all: primes primes-i steg-decode steg-encode
 
@@ -53,7 +49,6 @@ clean:
 pack:
 	zip xmilos02.zip *.c *.h Makefile
 
-run: all
-	./primes
-	./primes-i
+run:
+	ulimit -s 125000 && ./primes ; ./primes-i
 	./steg-decode du1-obrazek.ppm
