@@ -46,7 +46,7 @@ int main(int argc, char **argv)
 		ppm_free(image);
 		error_exit("Chyba při čtení vstupu.\n");
 	}
-	printf("%s\n", message);
+	//printf("%s\n", message);
 
 	//Eratosthenes(primes_bitset);
 

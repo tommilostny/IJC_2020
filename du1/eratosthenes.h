@@ -23,4 +23,4 @@
 //   4) i++; dokud nejsme za sqrt(N), opakujeme bod 2 až 4
 //      (POZOR: sestavit s matematickou knihovnou parametrem -lm)
 //   5) Výsledek: v poli p jsou na prvočíselných indexech hodnoty 0
-void Eratosthenes(bitset_t pole);
+void Eratosthenes(bitset_t array);
