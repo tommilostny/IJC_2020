@@ -31,3 +31,8 @@ struct ppm *ppm_read(const char *filename);
  * Uvolní paměť dynamicky alokované struktury vytvořené ppm_read
  */
 void ppm_free(struct ppm *p);
+
+/*
+ * Zapíše data struktury ppm do souboru
+ */
+int ppm_write(struct ppm *p, const char *filename);

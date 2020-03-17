@@ -16,7 +16,7 @@
 struct ppm *ppm_read(const char *filename)
 {
 	struct ppm *image = NULL;
-	FILE* ppm_file = fopen(filename, "rb");
+	FILE* ppm_file = fopen(filename, "r");
 
 	if (ppm_file == NULL)
 	{
@@ -98,4 +98,23 @@ void ppm_free(struct ppm *p)
 		free(p->data);
 		free(p);
 	}
+}
+
+int ppm_write(struct ppm *p, const char *filename)
+{
+	FILE* ppm_file = fopen(filename, "w");
+
+	if (ppm_file == NULL)
+		return 1;
+
+	fprintf(ppm_file, "P6\n%u %u\n255\n", p->xsize, p->ysize);
+
+	for (size_t i = 0; i < p->xsize * p->ysize * 3; i++)
+	{
+		if (fputc(p->data[i], ppm_file) == EOF)
+			return 1;
+	}
+
+	fclose(ppm_file);
+	return 0;
 }
