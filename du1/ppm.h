@@ -21,18 +21,12 @@ struct ppm
 	unsigned char *data; //RGB 3*xsize*ysize
 };
 
-/*
- * Načte obsah PPM souboru do touto funkcí dynamicky alokované struktury.
- * Při chybě formátu použije funkci warning_msg a vrátí NULL.
- */
+// Načte obsah PPM souboru do touto funkcí dynamicky alokované struktury.
+// Při chybě formátu použije funkci warning_msg a vrátí NULL.
 struct ppm *ppm_read(const char *filename);
 
-/*
- * Uvolní paměť dynamicky alokované struktury vytvořené ppm_read
- */
+// Uvolní paměť dynamicky alokované struktury vytvořené ppm_read
 void ppm_free(struct ppm *p);
 
-/*
- * Zapíše data struktury ppm do souboru
- */
+// Zapíše data struktury ppm do souboru
 int ppm_write(struct ppm *p, const char *filename);

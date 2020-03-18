@@ -19,7 +19,7 @@ int main()
 {
 	bitset_create(primes_bitset, PRIMES_COUNT);
 	clock_t start;
-	int p_cnt = 0;
+	short p_cnt = 0;
 	bitset_index_t primes[10];
 
 	start = clock();

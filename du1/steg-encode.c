@@ -6,8 +6,10 @@
  * Autor: Tomáš Milostný, xmilos02, FIT VUT
  * Překladač: gcc (Ubuntu 7.4.0-1ubuntu1~18.04.1) 7.4.0
  * Popis: Steganografický enkodér - Program zašifruje tajnou zprávu do souboru.
- *        Znaky zprávy jsou uložney na nejnižších významový bytech RBG bytů PPM obrázku.
+ *        Znaky zprávy jsou uloženy na nejnižších významový bytech RBG bytů PPM obrázku.
  *        Vybrané byty jsou prvočíla počínaje 23.
+ *        Argumentem programu #1 je ppm obrázek zdrojový
+ *        Nepovinným argumentem #2 je cílový soubor (výchozí - přepíše zdrojový soubor)
  */
 
 #include <stdio.h>
@@ -17,9 +19,9 @@
 
 int main(int argc, char **argv)
 {
-	if (argc != 2)
+	if (argc < 2)
 		error_exit("Nedostatečný počet argumentů.\nSpusťte program jako: ./steg-encode soubor.ppm\n");
-
+	
 	struct ppm *image = ppm_read(argv[1]);
 	if (image == NULL)
 		return 1;
@@ -48,7 +50,7 @@ int main(int argc, char **argv)
 		error_exit("Chyba při čtení vstupu.\n");
 	}
 
-	size_t message_length = strlen(message); //počet písmen zprávy k zakódování
+	size_t message_length = strlen(message);
 	message[message_length - 1] = '\0';
 
 	Eratosthenes(primes_bitset);
@@ -69,12 +71,12 @@ int main(int argc, char **argv)
 			
 			//maskování na 0
 			else
-				image->data[prime_index++] &= ~(0x01);
+				image->data[prime_index++] &= 0xFE;
 		}
 	}
 
-	if (ppm_write(image, argv[1]))
-		warning_msg("%s: Nastala chyba při zápisu do souboru.\n", argv[1]);
+	if (ppm_write(image, argv[argc - 1]))
+		warning_msg("%s: Nastala chyba při zápisu do souboru.\n", argv[argc - 1]);
 
 	free(message);
 	bitset_free(primes_bitset);

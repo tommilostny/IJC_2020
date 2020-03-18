@@ -30,6 +30,6 @@ void Eratosthenes(bitset_t array)
 			//označíme násobky prvočísla 1 (není prvočíslo)
 			for (bitset_index_t j = i * i; j <= bitset_size(array); j += i)
 				bitset_setbit(array, j, 1);
-		}		
+		}
 	}
 }

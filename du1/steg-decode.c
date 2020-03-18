@@ -17,11 +17,11 @@
 int main(int argc, char **argv)
 {
 	if (argc != 2)
-		error_exit("Nedostatečný počet argumentů.\nSpusťte program jako: ./steg-decode soubor.ppm\n");
+		error_exit("Špatný počet argumentů.\nSpusťte program jako: ./steg-decode soubor.ppm\n");
 	
 	struct ppm *image = ppm_read(argv[1]);
 	if (image == NULL)
-		return 1;
+		error_exit("%s: Nastala chyba při čtení souboru.\n", argv[1]);
 
 	bitset_alloc(primes_bitset, image->xsize * image->ysize * 3);
 	if (primes_bitset == NULL)
@@ -55,5 +55,9 @@ int main(int argc, char **argv)
 
 	bitset_free(primes_bitset);
 	ppm_free(image);
+
+	if (secret_character != '\0')
+		error_exit("\nZpráva není uložena ve správném formátu.\n");
+
 	return 0;
 }

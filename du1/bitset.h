@@ -50,7 +50,7 @@ typedef unsigned long bitset_index_t;
 //nenulový výraz: 1
 #define bitset_setbit(array_name, index, expression) \
 	(index) > bitset_size(array_name) \
-	? error_exit("bitset_setbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)) , 2 \
+	? error_exit("bitset_setbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)(index), bitset_size(array_name)) , 2 \
 	: (expression) \
 		? (array_name[(index) / BITLENGTH + 1] |= 1UL << (index) % BITLENGTH) \
 		: (array_name[(index) / BITLENGTH + 1] &= ~(1UL << (index) % BITLENGTH))
@@ -58,7 +58,7 @@ typedef unsigned long bitset_index_t;
 //Získá hodnotu zadaného bitu na zadaném indexu, vrací hodnotu 0 nebo 1
 #define bitset_getbit(array_name, index) \
 	((index) > bitset_size(array_name) \
-	? error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)index, bitset_size(array_name)) , 2 \
+	? error_exit("bitset_getbit: Index %lu mimo rozsah 0..%lu\n", (unsigned long)(index), bitset_size(array_name)) , 2 \
 	: !(array_name[(index) / BITLENGTH + 1] & (1UL << (index) % BITLENGTH)) ? 0 : 1)
 
 
