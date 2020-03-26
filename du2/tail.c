@@ -4,9 +4,10 @@
 #include <string.h>
 #include <errno.h>
 
+#define MAX_LINE_LENGTH 1023
+
 int main(int argc, char **argv)
 {
-	char line[1023];
 	int line_count = 10;
 	FILE *file;
 	bool file_opened = false;
@@ -39,14 +40,28 @@ int main(int argc, char **argv)
 			return 1;
 		}
 	}
-	
-	if (!file_opened)
-		file = stdin;
 
-	printf("%d\n", line_count);
-	printf("%s\n", (file == stdin) ? "stdin" : "your file name");
+	char **lines = malloc(line_count * sizeof(char *));
+	if (lines == NULL)
+	{
+		fprintf(stderr, "Error: Unable to allocate memory.\n");
+		if (file_opened)
+			fclose(file);
+		return 1;
+	}
+	
+	char line[MAX_LINE_LENGTH];
+	for (size_t i = 0; fgets(line, MAX_LINE_LENGTH, file_opened ? file : stdin) ; i++)
+	{
+		if (i >= MAX_LINE_LENGTH)
+			break;
+
+		strcpy(lines[i], line);
+		printf("%s", lines[i]);
+	}
 
 	if (file_opened)
 		fclose(file);
+	free(lines);
 	return 0;
 }
