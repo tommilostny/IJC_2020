@@ -6,8 +6,6 @@
 
 #define MAX_LINE_LENGTH 1023
 
-typedef struct { char text[MAX_LINE_LENGTH]; } line_t;
-
 int main(int argc, char **argv)
 {
 	int lines_count = 10;
@@ -43,7 +41,7 @@ int main(int argc, char **argv)
 		}
 	}
 
-	line_t **lines = malloc(lines_count * sizeof(line_t *));
+	char **lines = malloc(lines_count * sizeof(char *));
 	if (lines == NULL)
 	{
 		error_lstruct:
@@ -52,11 +50,11 @@ int main(int argc, char **argv)
 			fclose(file);
 		return 1;
 	}
-	else for (size_t i = 0; i < lines_count; i++)
-		if ((lines[i] = malloc(sizeof(line_t))) == NULL)
+	for (size_t i = 0; i < lines_count; i++)
+		if ((lines[i] = malloc(MAX_LINE_LENGTH)) == NULL)
 		{
 			for (size_t j = 0; j <= i; j++)
-				free(lines[i]);
+				free(lines[j]);
 			free(lines);
 			goto error_lstruct;
 		}
@@ -65,12 +63,12 @@ int main(int argc, char **argv)
 	for (size_t i = 0; fgets(line, MAX_LINE_LENGTH, file_opened ? file : stdin); i++)
 	{
 		if (i < lines_count)
-			strcpy(lines[i]->text, line);
+			strcpy(lines[i], line);
 		else
 		{
 			for (size_t j = 0; j < lines_count - 1; j++)
-				strcpy(lines[j]->text, lines[j + 1]->text);
-			strcpy(lines[lines_count - 1]->text, line);
+				strcpy(lines[j], lines[j + 1]);
+			strcpy(lines[lines_count - 1], line);
 		}
 	}
 
@@ -78,7 +76,7 @@ int main(int argc, char **argv)
 		fclose(file);
 	for (size_t i = 0; i < lines_count; i++)
 	{
-		printf("%s", lines[i]->text);
+		printf("%s", lines[i]);
 		free(lines[i]);
 	}
 	free(lines);
