@@ -13,6 +13,7 @@ int main(int argc, char **argv)
 	bool file_opened = false;
 	bool line_count_changed = false;
 
+	//first load program arguments
 	for (int i = 1; i < argc; i++)
 	{
 		if (!line_count_changed && strcmp(argv[i], "-n") == 0)
@@ -41,6 +42,7 @@ int main(int argc, char **argv)
 		}
 	}
 
+	//allocate output lines count number of string array members
 	char **lines = malloc(lines_count * sizeof(char *));
 	if (lines == NULL)
 	{
@@ -50,6 +52,8 @@ int main(int argc, char **argv)
 			fclose(file);
 		return 1;
 	}
+
+	//allocate all strings in lines array
 	for (size_t i = 0; i < lines_count; i++)
 		if ((lines[i] = malloc(MAX_LINE_LENGTH)) == NULL)
 		{
@@ -59,15 +63,20 @@ int main(int argc, char **argv)
 			goto error_lstruct;
 		}
 	
+	//loading file lines - if no file is opened, use stdin
 	char line[MAX_LINE_LENGTH];
 	for (size_t i = 0; fgets(line, MAX_LINE_LENGTH, file_opened ? file : stdin); i++)
 	{
+		//fist lines count lines
 		if (i < lines_count)
 			strcpy(lines[i], line);
 		else
 		{
+			//shift array members (discard first)
 			for (size_t j = 0; j < lines_count - 1; j++)
 				strcpy(lines[j], lines[j + 1]);
+
+			//copy loaded line to the array end
 			strcpy(lines[lines_count - 1], line);
 		}
 	}
