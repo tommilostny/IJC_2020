@@ -54,10 +54,10 @@ int main(int argc, char **argv)
 	}
 
 	//allocate all strings in lines array
-	for (size_t i = 0; i < lines_count; i++)
+	for (int i = 0; i < lines_count; i++)
 		if ((lines[i] = malloc(MAX_LINE_LENGTH)) == NULL)
 		{
-			for (size_t j = 0; j <= i; j++)
+			for (int j = 0; j <= i; j++)
 				free(lines[j]);
 			free(lines);
 			goto error_lstruct;
@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 	
 	//loading file lines - if no file is opened, use stdin
 	char line[MAX_LINE_LENGTH];
-	for (size_t i = 0; fgets(line, MAX_LINE_LENGTH, file_opened ? file : stdin); i++)
+	for (int i = 0; fgets(line, MAX_LINE_LENGTH, file_opened ? file : stdin); i++)
 	{
 		//fist lines count lines
 		if (i < lines_count)
@@ -73,7 +73,7 @@ int main(int argc, char **argv)
 		else
 		{
 			//shift array members (discard first)
-			for (size_t j = 0; j < lines_count - 1; j++)
+			for (int j = 0; j < lines_count - 1; j++)
 				strcpy(lines[j], lines[j + 1]);
 
 			//copy loaded line to the array end
@@ -83,7 +83,7 @@ int main(int argc, char **argv)
 
 	if (file_opened)
 		fclose(file);
-	for (size_t i = 0; i < lines_count; i++)
+	for (int i = 0; i < lines_count; i++)
 	{
 		printf("%s", lines[i]);
 		free(lines[i]);
