@@ -1,3 +1,13 @@
+/* 
+ * htab_hash_fun.c
+ * 
+ * Řešení IJC-DU2, příklad 2)
+ * Datum vytvoření: 4.4.2020
+ * Autor: Tomáš Milostný, xmilos02, FIT VUT
+ * Překladač:  gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+ * Popis: Rozptylovací funkce pro řetězce (podle http://www.cse.yorku.ca/~oz/hash.html - sdbm)
+ */
+
 #pragma once
 
 #include "htab.h"
