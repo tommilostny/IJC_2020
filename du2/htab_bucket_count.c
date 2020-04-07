@@ -8,8 +8,6 @@
  * Popis: Modul funkce vracející počet prvků pole (.arr_size).
  */
 
-#pragma once
-
 #include "htab.h"
 #include "htab_types.h"
 

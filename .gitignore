@@ -14,3 +14,6 @@ du2/tail
 du2/test.txt
 du2/wordcount-cc
 du2/ahoj.txt*
+du2/wordcount
+du2/wordcount-dynamic
+lib*

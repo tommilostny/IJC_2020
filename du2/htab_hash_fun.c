@@ -8,8 +8,6 @@
  * Popis: Rozptylovací funkce pro řetězce (podle http://www.cse.yorku.ca/~oz/hash.html - sdbm)
  */
 
-#pragma once
-
 #include "htab.h"
 #include <stdint.h>
 

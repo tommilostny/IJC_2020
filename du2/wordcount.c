@@ -7,8 +7,13 @@
  * Překladač:  gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
  */
 
+#include <stdio.h>
+#include "htab.h"
+
 int main()
 {
+	htab_t *table = htab_init(42);
+	printf("%ld\n", htab_bucket_count(table));
 
 	return 0;
 }

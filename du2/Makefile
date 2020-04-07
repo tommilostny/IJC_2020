@@ -7,13 +7,13 @@
 #            g++ (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
 # Popis: Program make pro přeložení souborů projektu
 
-all: tail wordcount-cc #wordcount
+all: tail wordcount-cc wordcount wordcount-dynamic
 
 CC = gcc
 CXX = g++
-CFLAGS = -g -std=c99 -pedantic -Wall -Wextra -O2
+CFLAGS = -g -std=c99 -pedantic -Wall -Wextra -O2 -fPIC
 CXXFLAGS = -g -std=c++17 -pedantic -Wall -O2
-LDFLAGS = -lm
+OBJS = htab_hash_fun.o htab_bucket_count.o htab_init.o htab_size.o
 
 tail: tail.c
 	$(CC) $(CFLAGS) $^ -o $@
@@ -21,19 +21,30 @@ tail: tail.c
 wordcount-cc: wordcount.cc
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-wordcount: wordcount.c
-	$(CC) $(CFLAGS) $^ -o $@
+wordcount: wordcount.o libhtab.a
+	$(CC) $(CFLAGS) -o wordcount -static  wordcount.o -L. -lhtab
+
+wordcount-dynamic: wordcount.o libhtab.so
+	$(CC) $(CFLAGS) -o wordcount-dynamic  wordcount.o -L. -lhtab
+
+# create static library 
+libhtab.a: $(OBJS)
+	ar crs libhtab.a $(OBJS)
+
+# create shared library 
+libhtab.so: $(OBJS)
+	$(CC) $(CFLAGS) -shared -o libhtab.so  $(OBJS)
 
 
 .PHONY: clean
 
 clean:
 	rm -f *.o
-	rm -f tail wordcount-cc wordcount
+	rm -f tail wordcount-cc wordcount wordcount-dynamic libhtab.a libhtab.so
 
 pack:
 	zip xmilos02.zip *.c *.cc *.h Makefile
 
-#run:
-#	ulimit -s 125000 && ./primes ; ./primes-i
-#	./steg-decode du1-obrazek.ppm
+run:
+	LD_LIBRARY_PATH="." ./wordcount-dynamic
+	./wordcount
