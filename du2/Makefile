@@ -13,7 +13,7 @@ CC = gcc
 CXX = g++
 CFLAGS = -g -std=c99 -pedantic -Wall -Wextra -O2 -fPIC
 CXXFLAGS = -g -std=c++17 -pedantic -Wall -O2
-OBJS = htab_hash_fun.o htab_bucket_count.o htab_init.o htab_size.o
+OBJS = htab_hash_fun.o htab_bucket_count.o htab_init.o htab_size.o htab_clear.o htab_free.o
 
 tail: tail.c
 	$(CC) $(CFLAGS) $^ -o $@
@@ -33,7 +33,7 @@ libhtab.a: $(OBJS)
 
 # create shared library 
 libhtab.so: $(OBJS)
-	$(CC) $(CFLAGS) -shared -o libhtab.so  $(OBJS)
+	$(CC) $(CFLAGS) -shared -o libhtab.so $(OBJS)
 
 
 .PHONY: clean

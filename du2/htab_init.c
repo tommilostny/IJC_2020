@@ -14,11 +14,11 @@
 
 htab_t *htab_init(size_t n)
 {
-	static htab_t tab;
+	htab_t *tab = malloc(sizeof(htab_t));
 
-	tab.size = 0;
-	tab.arr_size = n;
-	tab.ptr = malloc(n * sizeof(struct htab_item *));
+	tab->size = 0;
+	tab->arr_size = n;
+	tab->ptr = malloc(n * sizeof(struct htab_item *));
 
-	return &tab;
+	return tab;
 }

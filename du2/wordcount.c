@@ -15,5 +15,6 @@ int main()
 	htab_t *table = htab_init(42);
 	printf("%ld\n", htab_bucket_count(table));
 
+	htab_free(table);
 	return 0;
 }
