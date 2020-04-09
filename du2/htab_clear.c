@@ -17,6 +17,5 @@ void htab_clear(htab_t * t)
 	for (size_t i = 0; i < t->arr_size; i++)
 		free(t->ptr[i]);
 
-	free(t->ptr);
-	t->arr_size = t->size = 0;
+	t->size = 0;
 }

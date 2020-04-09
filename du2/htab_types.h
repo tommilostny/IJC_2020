@@ -10,8 +10,8 @@
 
 struct htab
 {
-	size_t size;
-	size_t arr_size;
+	size_t size; // aktuální počet záznamů [key,data,next]
+	size_t arr_size; // velikost následujícího pole ukazatelů
 	struct htab_item **ptr;
 };
 
