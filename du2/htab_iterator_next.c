@@ -17,7 +17,7 @@ htab_iterator_t htab_iterator_next(htab_iterator_t it)
 	if (htab_iterator_valid(it))
 	{
 		//Další záznam je konec řádku
-		if ((it.ptr = it.t->ptr[it.idx]->next) == NULL)
+		if ((it.ptr = it.ptr->next) == NULL)
 		{
 			//Nalezení nejbližšího existujícího záznamu
 			for (size_t i = it.idx + 1; i < htab_bucket_count(it.t); i++)

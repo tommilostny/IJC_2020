@@ -26,6 +26,7 @@ htab_iterator_t htab_find(htab_t * t, htab_key_t key)
 
 		if (it.ptr->next != NULL)
 			it = htab_iterator_next(it);
+		else break;
 	}
 	return htab_end(t);
 }
