@@ -14,6 +14,7 @@ CXX = g++
 CFLAGS = -g -std=c99 -pedantic -Wall -Wextra -O2 -fPIC
 CXXFLAGS = -g -std=c++17 -pedantic -Wall -O2
 OBJS = htab_hash_fun.o htab_bucket_count.o htab_init.o htab_size.o htab_clear.o htab_free.o
+OBJS += htab_iterator_next.c htab_begin.o htab_end.o htab_find.o
 
 tail: tail.c
 	$(CC) $(CFLAGS) $^ -o $@

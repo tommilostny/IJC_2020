@@ -9,11 +9,14 @@
 
 #include <stdio.h>
 #include "htab.h"
+#include "htab_types.h"
 
 int main()
 {
 	htab_t *table = htab_init(42);
 	printf("%ld\n", htab_bucket_count(table));
+
+	printf("%s\n", table->ptr[0] == NULL ? "true" : "false");
 
 	htab_free(table);
 	return 0;
