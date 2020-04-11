@@ -16,7 +16,24 @@ int main()
 	htab_t *table = htab_init(42);
 	printf("%ld\n", htab_bucket_count(table));
 
-	printf("%s\n", table->ptr[0] == NULL ? "true" : "false");
+	size_t index = htab_hash_fun("ahoj") % htab_bucket_count(table);
+
+	printf("%lu: %s\n", index, table->ptr[index] == NULL ? "null" : "not null");
+
+	htab_lookup_add(table, "ahoj");
+	htab_lookup_add(table, "ahoj");
+	htab_lookup_add(table, "heya");
+	htab_lookup_add(table, "hey");
+	htab_lookup_add(table, "ahoj");
+	htab_lookup_add(table, "hey");
+
+	htab_iterator_t it = htab_begin(table);
+
+	while (htab_iterator_valid(it))
+	{
+		printf("%lu : %s : %d\n", it.idx, it.ptr->key, it.ptr->data);
+		it = htab_iterator_next(it);
+	}
 
 	htab_free(table);
 	return 0;

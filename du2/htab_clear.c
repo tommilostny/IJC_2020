@@ -14,8 +14,20 @@
 
 void htab_clear(htab_t * t)
 {
-	for (size_t i = 0; i < t->arr_size; i++)
-		free(t->ptr[i]);
-
+	for (size_t i = 0; i < htab_bucket_count(t); i++)
+	{
+		if (t->ptr[i] != NULL)
+		{
+			//Smazání všech záznamů v neprázdném řádku
+			struct htab_item *item = t->ptr[i]->next;
+			while (item != NULL)
+			{
+				struct htab_item *next = item->next;
+				free(item);
+				item = next;
+			}
+			free(t->ptr[i]);
+		}
+	}
 	t->size = 0;
 }

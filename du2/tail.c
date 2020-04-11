@@ -19,7 +19,7 @@
 int main(int argc, char **argv)
 {
 	int lines_count = 10;
-	FILE *file;
+	FILE *file = stdin;
 	bool file_opened = false;
 	bool line_count_changed = false;
 
@@ -75,7 +75,7 @@ int main(int argc, char **argv)
 	
 	//loading file lines - if no file is opened, use stdin
 	char line[MAX_LINE_LENGTH];
-	for (int i = 0; fgets(line, MAX_LINE_LENGTH, file_opened ? file : stdin); i++)
+	for (int i = 0; fgets(line, MAX_LINE_LENGTH, file); i++)
 	{
 		//fist lines count lines
 		if (i < lines_count)
