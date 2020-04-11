@@ -14,23 +14,21 @@
 
 htab_iterator_t htab_iterator_next(htab_iterator_t it)
 {
-	//Přesun na další záznam v řádku
-	if (it.ptr != NULL)
-		it.ptr = it.t->ptr[it.idx]->next;
-
-	//Prázdný/konec řádku
-	else
+	if (htab_iterator_valid(it))
 	{
-		//Nalezení nejbližšího existujícího záznamu
-		for (size_t i = it.idx + 1; i < htab_bucket_count(it.t); i++)
+		//Další záznam je konec řádku
+		if ((it.ptr = it.t->ptr[it.idx]->next) == NULL)
 		{
-			it.ptr = it.t->ptr[i];
-			it.idx = i;
+			//Nalezení nejbližšího existujícího záznamu
+			for (size_t i = it.idx + 1; i < htab_bucket_count(it.t); i++)
+			{
+				it.ptr = it.t->ptr[i];
+				it.idx = i;
 
-			if (it.ptr != NULL)
-				break;
+				if (it.ptr != NULL)
+					break;
+			}
 		}
 	}
-
 	return it;
 }
