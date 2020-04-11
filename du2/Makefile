@@ -7,7 +7,7 @@
 #            g++ (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
 # Popis: Program make pro přeložení souborů projektu
 
-all: tail wordcount-cc wordcount wordcount-dynamic
+all: tail wordcount-cc wordcount wordcount-dynamic clean_obj
 
 CC = gcc
 CXX = g++
@@ -40,10 +40,10 @@ libhtab.so: $(OBJS)
 	$(CC) $(CFLAGS) -shared -o libhtab.so $(OBJS)
 
 
-.PHONY: clean
-
-clean:
+clean_obj:
 	rm -f *.o
+
+clean: clean_obj
 	rm -f tail wordcount-cc wordcount wordcount-dynamic libhtab.a libhtab.so
 
 pack:
