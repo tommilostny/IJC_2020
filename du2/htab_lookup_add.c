@@ -23,7 +23,6 @@ htab_iterator_t htab_lookup_add(htab_t * t, htab_key_t key)
 		//Záznam nenalezen, vytvoření nového a přidání na konec řádku
 		struct htab_item *new_item = malloc(sizeof(struct htab_item));
 		new_item->key = key;
-		new_item->data = 1;
 		new_item->next = NULL;
 
 		size_t index = htab_hash_fun(key) % htab_bucket_count(t);
@@ -45,10 +44,6 @@ htab_iterator_t htab_lookup_add(htab_t * t, htab_key_t key)
 		iterator.ptr = new_item;
 		t->size++;
 	}
-
-	//Záznam nalezen, inkrementovat data
-	else
-		iterator.ptr->data++;
 
 	return iterator;
 }

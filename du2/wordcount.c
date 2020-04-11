@@ -29,9 +29,9 @@ int main()
 
 	htab_iterator_t it = htab_begin(table);
 
-	while (htab_iterator_valid(it))
+	for (int i = 1; htab_iterator_valid(it); i++)
 	{
-		printf("%lu : %s : %d\n", it.idx, it.ptr->key, it.ptr->data);
+		printf("%d: %lu : %s : %d\n", i, it.idx, it.ptr->key, it.ptr->data);
 		it = htab_iterator_next(it);
 	}
 
