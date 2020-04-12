@@ -11,8 +11,8 @@ all: tail wordcount-cc wordcount wordcount-dynamic clean_obj
 
 CC = gcc
 CXX = g++
-CFLAGS = -g -std=c99 -pedantic -Wall -Wextra -Og -fPIC
-CXXFLAGS = -g -std=c++17 -pedantic -Wall -Og
+CFLAGS = -g -std=c99 -pedantic -Wall -Wextra -O2 -fPIC
+CXXFLAGS = -g -std=c++17 -pedantic -Wall -O2
 
 #find -type f | grep "^\./htab_" | grep "\.c$" | sed "s/\.c/\.o/g"
 OBJS  = htab_hash_fun.o htab_bucket_count.o htab_init.o htab_size.o htab_clear.o htab_free.o
