@@ -4,7 +4,7 @@
  * Řešení IJC-DU2, příklad 2)
  * Datum vytvoření: 31.3.2020
  * Autor: Tomáš Milostný, xmilos02, FIT VUT
- * Překladač:  gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+ * Překladač: gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
  */
 
 #include <stdio.h>
@@ -13,32 +13,17 @@
 
 int main()
 {
-	htab_t *table = htab_init(2);
+	htab_t *table = htab_init(8);
 
-	htab_lookup_add(table, "ahoj");
-	htab_lookup_add(table, "ahoj");
-	htab_lookup_add(table, "heya");
-	htab_lookup_add(table, "hey");
-	htab_lookup_add(table, "ahoj");
-	htab_lookup_add(table, "hey");
-	htab_lookup_add(table, "azdar");
-
-	htab_iterator_t it = htab_begin(table);
-
-	for (int i = 1; htab_iterator_valid(it); i++)
+	char word[256];
+	while(scanf("%s", word) != EOF)
 	{
-		printf("%d: %lu : %s : %d\n", i, it.idx, it.ptr->key, it.ptr->data);
-		it = htab_iterator_next(it);
+		htab_lookup_add(table, word).ptr->data++;
 	}
 
-	printf("=============================\n");
-	it = htab_find(table, "heya");
-	htab_erase(table, it);
-	it = htab_begin(table);
-	for (int i = 1; htab_iterator_valid(it); i++)
+	for (htab_iterator_t i = htab_begin(table); htab_iterator_valid(i); i = htab_iterator_next(i))
 	{
-		printf("%d: %lu : %s : %d\n", i, it.idx, it.ptr->key, it.ptr->data);
-		it = htab_iterator_next(it);
+		printf("%s\t%d\n", i.ptr->key, i.ptr->data);
 	}
 
 	htab_free(table);
