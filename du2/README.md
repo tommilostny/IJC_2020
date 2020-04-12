@@ -325,7 +325,7 @@ Obecné pokyny pro vypracování domácích úkolů
    Použití nepřenositelných konstrukcí v programech není dovoleno.
 
 *  Úkoly zkontrolujte překladačem například takto:
-      gcc -std=c99 -pedantic -Wall -Wextra priklad1.c
+     gcc -std=c99 -pedantic -Wall -Wextra priklad1.c
       g++ -std=c++17 -pedantic -Wall priklad.cc
    Místo gcc můžete použít i jiný překladač - podle vašeho prostředí.
    V  souvislosti s tím napište do poznámky na začátku

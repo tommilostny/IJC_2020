@@ -8,7 +8,7 @@
  * Popis: Modul hledání v tabulce.
  */
 
-#include <stdlib.h>
+#include <string.h>
 #include "htab.h"
 #include "htab_types.h"
 
@@ -21,7 +21,7 @@ htab_iterator_t htab_find(htab_t * t, htab_key_t key)
 
 	while (it.ptr != NULL)
 	{
-		if (it.ptr->key == key)
+		if (strcmp(it.ptr->key, key) == 0)
 			return it;
 
 		if (it.ptr->next != NULL)

@@ -8,7 +8,6 @@
  * Popis: Posun iterátoru na další záznam v tabulce.
  */
 
-#include <stdlib.h>
 #include "htab.h"
 #include "htab_types.h"
 

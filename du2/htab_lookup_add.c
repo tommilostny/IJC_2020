@@ -11,6 +11,7 @@
  */
 
 #include <stdlib.h>
+#include <string.h>
 #include "htab.h"
 #include "htab_types.h"
 
@@ -22,7 +23,11 @@ htab_iterator_t htab_lookup_add(htab_t * t, htab_key_t key)
 	{
 		//Záznam nenalezen, vytvoření nového a přidání na konec řádku
 		struct htab_item *new_item = malloc(sizeof(struct htab_item));
-		new_item->key = key;
+
+		char* new_key = malloc(strlen(key));
+		strcpy(new_key, key);
+		new_item->key = new_key;
+
 		new_item->next = NULL;
 
 		size_t index = htab_hash_fun(key) % htab_bucket_count(t);

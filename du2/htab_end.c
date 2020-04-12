@@ -8,7 +8,6 @@
  * Popis: Iterátor označující (neexistující) první záznam za koncem.
  */
 
-#include <stdlib.h>
 #include "htab.h"
 #include "htab_types.h"
 

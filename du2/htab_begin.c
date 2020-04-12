@@ -8,7 +8,6 @@
  * Popis: Iterátor odkazující na první záznam.
  */
 
-#include <stdlib.h>
 #include "htab.h"
 #include "htab_types.h"
 
