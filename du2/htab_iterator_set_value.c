@@ -8,7 +8,6 @@
  * Popis: Přepisuje hodnotu, cíl musí existovat
  */
 
-#include <stdlib.h>
 #include "htab.h"
 #include "htab_types.h"
 

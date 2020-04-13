@@ -8,26 +8,16 @@
  * Popis: Modul zrušení všech položek, tabulka zůstane prázdná.
  */
 
-#include <stdlib.h>
 #include "htab.h"
 #include "htab_types.h"
 
 void htab_clear(htab_t * t)
 {
-	for (size_t i = 0; i < htab_bucket_count(t); i++)
+	htab_iterator_t it = htab_begin(t);
+	while (t->size-- > 0)
 	{
-		if (t->ptr[i] != NULL)
-		{
-			//Smazání všech záznamů v neprázdném řádku
-			struct htab_item *item = t->ptr[i]->next;
-			while (item != NULL)
-			{
-				struct htab_item *next = item->next;
-				free(item);
-				item = next;
-			}
-			free(t->ptr[i]);
-		}
+		htab_iterator_t next = htab_iterator_next(it);
+		htab_erase(t, it);
+		it = next;
 	}
-	t->size = 0;
 }

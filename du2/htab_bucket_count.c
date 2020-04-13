@@ -1,5 +1,5 @@
 /* 
- * htab_init.c
+ * htab_bucket_count.c
  * 
  * Řešení IJC-DU2, příklad 2)
  * Datum vytvoření: 5.4.2020
