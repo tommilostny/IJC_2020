@@ -9,12 +9,11 @@
  */
 
 #include "htab.h"
-#include "htab_types.h"
 
 void htab_clear(htab_t * t)
 {
 	htab_iterator_t it = htab_begin(t);
-	while (t->size-- > 0)
+	while (htab_size(t) > 0)
 	{
 		htab_iterator_t next = htab_iterator_next(it);
 		htab_erase(t, it);

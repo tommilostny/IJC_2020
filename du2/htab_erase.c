@@ -18,9 +18,15 @@ void htab_erase(htab_t * t, htab_iterator_t it)
 	{
 		struct htab_item *p = t->ptr[it.idx];
 
+		//Ukazatel iterátoru není poslední v řádku
 		if (p->next != NULL)
 		{
-			if (p != it.ptr)
+			//Ukazatel je první v řádku tabulky
+			if (p == it.ptr)
+			{
+				t->ptr[it.idx] = p->next;
+			}
+			else
 			{
 				//Nalezení předchůdce ukazatele iterátoru
 				while (p->next != it.ptr)
@@ -29,8 +35,6 @@ void htab_erase(htab_t * t, htab_iterator_t it)
 				//Následník it.ptr nahradí it.ptr
 				p->next = it.ptr->next;
 			}
-			else
-				t->ptr[it.idx] = p->next;
 		}
 
 		if (it.ptr == t->ptr[it.idx])

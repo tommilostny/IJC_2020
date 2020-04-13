@@ -42,7 +42,7 @@ libhtab.so: $(OBJS)
 io.o: io.c io.h
 
 
-clean: clean_obj
+clean:
 	rm -f *.o tail wordcount-cc wordcount wordcount-dynamic libhtab.a libhtab.so
 
 pack:
