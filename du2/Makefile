@@ -11,35 +11,34 @@ all: tail wordcount-cc wordcount wordcount-dynamic
 
 CC = gcc
 CXX = g++
-CFLAGS = -g -std=c99 -pedantic -Wall -Wextra -O2 -fPIC
-CXXFLAGS = -g -std=c++17 -pedantic -Wall -O2
+CFLAGS = -g -std=c99 -pedantic -Wall -Wextra -fPIC -O3
+CXXFLAGS = -g -std=c++17 -pedantic -Wall
 
 #find -type f | grep "^\./htab_" | grep "\.c$" | sed "s/\.c/\.o/g"
 OBJS  = htab_hash_fun.o htab_bucket_count.o htab_init.o htab_size.o htab_clear.o htab_free.o
 OBJS += htab_iterator_next.o htab_begin.o htab_end.o htab_find.o htab_lookup_add.o
 OBJS += htab_iterator_get_key.o htab_iterator_get_value.o htab_iterator_set_value.o htab_erase.o
 
-tail: tail.c
+tail: tail.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 wordcount-cc: wordcount.cc
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-wordcount: wordcount.o libhtab.a io.o
-	$(CC) $(CFLAGS) -o wordcount -static  wordcount.o io.o -L. -lhtab
+wordcount: wordcount.o io.o htab.h libhtab.a
+	$(CC) $(CFLAGS) -o $@ -static wordcount.o io.o -L. -lhtab
 
-wordcount-dynamic: wordcount.o libhtab.so io.o
-	$(CC) $(CFLAGS) -o wordcount-dynamic  wordcount.o io.o -L. -lhtab
+wordcount-dynamic: wordcount.o io.o htab.h libhtab.so
+	$(CC) $(CFLAGS) -o $@ -dynamic wordcount.o io.o -L. -lhtab -Wl,-rpath,.
 
 # create static library 
 libhtab.a: $(OBJS)
 	ar crs libhtab.a $(OBJS)
+	ranlib libhtab.a
 
 # create shared library 
 libhtab.so: $(OBJS)
 	$(CC) $(CFLAGS) -shared -o libhtab.so $(OBJS)
-
-io.o: io.c io.h
 
 
 clean:
@@ -49,5 +48,5 @@ pack:
 	zip xmilos02.zip *.c *.cc *.h Makefile
 
 run:
-	LD_LIBRARY_PATH="." ./wordcount-dynamic
+	./wordcount-dynamic
 	./wordcount

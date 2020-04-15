@@ -17,7 +17,7 @@ htab_t *htab_init(size_t n)
 	htab_t *tab;
 	if ((tab = malloc(sizeof(htab_t))) != NULL)
 	{
-		if ((tab->ptr = malloc(n * sizeof(struct htab_item *))) != NULL)
+		if ((tab->ptr = malloc(n * sizeof(struct htab_item))) != NULL)
 		{ 
 			tab->size = 0;
 			tab->arr_size = n;

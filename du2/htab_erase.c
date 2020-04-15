@@ -40,6 +40,7 @@ void htab_erase(htab_t * t, htab_iterator_t it)
 		if (it.ptr == t->ptr[it.idx])
 			t->ptr[it.idx] = NULL;
 
+		free((char *)it.ptr->key);
 		free(it.ptr);
 		t->size--;
 	}

@@ -8,8 +8,6 @@
  * Popis: Privátní definice struktur pro všechny moduly tabulky.
  */
 
-#pragma once
-
 struct htab
 {
 	size_t size; // aktuální počet záznamů [key,data,next]

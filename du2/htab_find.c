@@ -8,7 +8,6 @@
  * Popis: Modul hledání v tabulce.
  */
 
-#include <string.h>
 #include "htab.h"
 #include "htab_types.h"
 
