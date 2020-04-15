@@ -17,6 +17,11 @@ int main()
 {
 	//TODO: rozmyslet si tuto velikost a odůvodnit to
 	htab_t *table = htab_init(8);
+	if (table == NULL)
+	{
+		fprintf(stderr, "Error: Unable to allocate memory.\n");
+		return 1;
+	}
 
 	char word[MAX_WORD_LENGTH];
 	int gw_status, warning_cnt = 0;
@@ -28,6 +33,14 @@ int main()
 		{
 			//Nalezení/přidání slova do tabulky
 			htab_iterator_t i = htab_lookup_add(table, word);
+
+			//Chyba alokace paměti v lookup add
+			if (htab_iterator_equal(i, htab_end(table)))
+			{
+				fprintf(stderr, "Error: Unable to allocate memory.\n");
+				htab_free(table);
+				return 1;
+			}
 
 			//Inkrementace nalezené hodnoty (nová hodnota jako 0 + 1)
 			htab_iterator_set_value(i, htab_iterator_get_value(i) + 1);

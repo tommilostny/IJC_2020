@@ -22,30 +22,41 @@ htab_iterator_t htab_lookup_add(htab_t * t, htab_key_t key)
 	{
 		//Záznam nenalezen, vytvoření nového a přidání na konec řádku
 		struct htab_item *new_item = malloc(sizeof(struct htab_item));
-
-		char *new_key = malloc(strlen(key));
-		new_item->key = strcpy(new_key, key);
-		new_item->next = NULL;
-
-		size_t index = htab_hash_fun(key) % htab_bucket_count(t);
-
-		//Prázdný řádek, první záznam
-		if (t->ptr[index] == NULL)
+		if (new_item != NULL)
 		{
-			t->ptr[index] = new_item;
-		}
-		else //Vložení na konec řádku tabulky
-		{
-			iterator.ptr = t->ptr[index];
-			while (iterator.ptr->next != NULL)
-				iterator = htab_iterator_next(iterator);
+			char *new_key = malloc(strlen(key));
+			if (new_key != NULL)
+			{
+				new_item->key = strcpy(new_key, key);
+				new_item->next = NULL;
 
-			iterator.ptr->next = new_item;
+				size_t index = htab_hash_fun(key) % htab_bucket_count(t);
+
+				//Prázdný řádek, první záznam
+				if (t->ptr[index] == NULL)
+				{
+					t->ptr[index] = new_item;
+				}
+				else //Vložení na konec řádku tabulky
+				{
+					iterator.ptr = t->ptr[index];
+					while (iterator.ptr->next != NULL)
+						iterator = htab_iterator_next(iterator);
+
+					iterator.ptr->next = new_item;
+				}
+				iterator.idx = index;
+				iterator.ptr = new_item;
+				t->size++;
+			}
+			else
+			{
+				free(new_item);
+				return htab_end(t);	
+			}
 		}
-		iterator.idx = index;
-		iterator.ptr = new_item;
-		t->size++;
+		else
+			return htab_end(t);
 	}
-
 	return iterator;
 }
