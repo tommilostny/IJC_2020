@@ -11,6 +11,8 @@
 #include <stdint.h>
 #include "htab.h"
 
+#ifndef HASHTEST //rozptylovací funkce sdbm ze zadání
+
 size_t htab_hash_fun(htab_key_t str)
 {
 	uint32_t hash = 0;
@@ -21,3 +23,12 @@ size_t htab_hash_fun(htab_key_t str)
 	
 	return hash;
 }
+
+#else //vlastní verze vytvořená podmíněným překladem
+
+size_t htab_hash_fun(htab_key_t str)
+{
+
+}
+
+#endif
