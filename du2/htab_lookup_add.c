@@ -24,7 +24,7 @@ htab_iterator_t htab_lookup_add(htab_t * t, htab_key_t key)
 		struct htab_item *new_item = malloc(sizeof(struct htab_item));
 		if (new_item != NULL)
 		{
-			char *new_key = malloc(strlen(key));
+			char *new_key = malloc(strlen(key) + 1);
 			if (new_key != NULL)
 			{
 				new_item->key = strcpy(new_key, key);

@@ -11,7 +11,7 @@ all: tail wordcount-cc wordcount wordcount-dynamic
 
 CC = gcc
 CXX = g++
-CFLAGS = -g -std=c99 -pedantic -Wall -Wextra -fPIC -Og
+CFLAGS = -g -std=c99 -pedantic -Wall -Wextra -fPIC -O3
 CXXFLAGS = -g -std=c++17 -pedantic -Wall
 
 OBJS  = htab_hash_fun.o htab_bucket_count.o htab_init.o htab_size.o htab_clear.o htab_free.o

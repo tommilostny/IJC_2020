@@ -21,6 +21,9 @@ htab_t *htab_init(size_t n)
 		{ 
 			tab->size = 0;
 			tab->arr_size = n;
+			for (size_t i = 0; i < n; i++)
+				tab->ptr[i] = NULL;
+			
 			return tab;
 		}
 		free(tab);
