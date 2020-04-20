@@ -23,7 +23,7 @@ int main()
 	 * ~2.0s : time shuf -n50000 /usr/share/dict/words | ./wordcount-dynamic
 	 * ~2.2s : time shuf -n50000 /usr/share/dict/words | ./wordcount-cc
 	 * 
-	 * Testovací ~13 MB soubor generovaného textu:
+	 * Testovací ~13 MB soubor generovaného textu s výskytem více stejných slov:
 	 *  wordcount-dynamic : ~0.18s
 	 *  wordcount-cc      : ~0.55s
 	 * 
