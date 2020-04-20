@@ -17,12 +17,17 @@ int main()
 {
 	/* Konstanta sdbm 65599 (/2 = 32799, /4 = 16399, ...)
 	 *
-	 * time ./wordcount-dynamic </usr/share/dict/words :    ~ 6.5s
-	 * time ./wordcount-cc </usr/share/dict/words      :    ~ 6.9s
+	 * ~6.5s : time ./wordcount-dynamic </usr/share/dict/words
+	 * ~6.9s : time ./wordcount-cc </usr/share/dict/words
 	 * 
-	 * Testovací ~13 MB soubor náhodně generovaného textu:
-	 * 	wordcount-dynamic : ~0.18s
+	 * ~2.0s : time shuf -n50000 /usr/share/dict/words | ./wordcount-dynamic
+	 * ~2.2s : time shuf -n50000 /usr/share/dict/words | ./wordcount-cc
+	 * 
+	 * Testovací ~13 MB soubor generovaného textu:
+	 *  wordcount-dynamic : ~0.18s
 	 *  wordcount-cc      : ~0.55s
+	 * 
+	 * (testovací časy pro laptop Acer Spin 5 - Intel Core i7-8550U, 8GB DDR4 RAM, 512GB SSD M.2)
 	 */
 	htab_t *table = htab_init(16399);
 	if (table == NULL)
