@@ -15,16 +15,16 @@
 
 int main()
 {
-	/* https://www.google.com/search?newwindow=1&sxsrf=ALeKk02tMONkr9-5xX9HpmjjybzHcVIWyw%3A1586986647511&ei=l36XXqbUHveT1fAPq6CQ8Ak&q=sdbm+hash+effective+table+size
-	 * https://www.partow.net/programming/hashfunctions/ 
+	/* Konstanta sdbm 65599 (/2 = 32799, /4 = 16399, ...)
 	 *
-	 * Set the hash table size to be a factor of Hmax (eg: A good basis would be 2n)
-	 * Increase the hash table size (where possible have the size tend closer to Hmax)
+	 * time ./wordcount-dynamic </usr/share/dict/words :    ~ 6.5s
+	 * time ./wordcount-cc </usr/share/dict/words      :    ~ 6.9s
 	 * 
-	 * 65536 je 2^16, nejblíže konstantě 65599 z sdbm algoritmu
-	 *   - vychází zatím velmi efektivně
+	 * Testovací ~13 MB soubor náhodně generovaného textu:
+	 * 	wordcount-dynamic : ~0.18s
+	 *  wordcount-cc      : ~0.55s
 	 */
-	htab_t *table = htab_init(65536);
+	htab_t *table = htab_init(16399);
 	if (table == NULL)
 	{
 		fprintf(stderr, "Error: Unable to allocate memory.\n");
