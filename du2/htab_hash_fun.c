@@ -5,30 +5,34 @@
  * Datum vytvoření: 4.4.2020
  * Autor: Tomáš Milostný, xmilos02, FIT VUT
  * Překladač: gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
- * Popis: Rozptylovací funkce pro řetězce (podle http://www.cse.yorku.ca/~oz/hash.html - sdbm)
+ * Popis: Rozptylovací funkce pro řetězce (podle http://www.cse.yorku.ca/~oz/hash.html)
  */
 
 #include <stdint.h>
 #include "htab.h"
 
-#ifndef HASHTEST //rozptylovací funkce sdbm ze zadání
+#ifndef HASHTEST //rozptylovací funkce ze zadání (sdbm)
 
 size_t htab_hash_fun(htab_key_t str)
 {
-	uint32_t hash = 0;
-	const unsigned char *p;
-
-	for (p = (const unsigned char *)str; *p != '\0'; p++)
-		hash = 65599 * hash + *p;
-	
-	return hash;
+	uint32_t h=0;     // musí mít 32 bitů
+    const unsigned char *p;
+    for(p=(const unsigned char*)str; *p!='\0'; p++)
+        h = 65599*h + *p;
+    return h;
 }
 
-#else //vlastní verze vytvořená podmíněným překladem
+#else //verze vytvořená podmíněným překladem (djb2)
 
 size_t htab_hash_fun(htab_key_t str)
 {
+	uint32_t h = 0;
+	htab_key_t p = str;
 
+	while (*p != '\0')
+        h = ((h << 5) + h) + *p++;
+	
+	return h;
 }
 
 #endif
